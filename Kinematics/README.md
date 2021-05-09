@@ -1,7 +1,6 @@
 # Kinematics - 1D
 To create an accurate kinematics physics simulation, the relationships between position, velocity, and acceleration can be used.
-
-<img src="http://www.sciweavers.org/tex2img.php?eq=v%28t%29%3D%5Cfrac%7Bdx%7D%7Bdt%7D&bc=White&fc=Black&im=jpg&fs=12&ff=modern&edit=0" align="center" border="0" alt="v(t)=\frac{dx}{dt}" width="72" height="36" />
+<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
 $$a(t)=\dfrac{dv}{dt}$$
 
 Where $a(t)$ is acceleration, $v(t)$ is velocity, and $x(t)$ is position. If we start from a known acceleration and initial position, which this program will, then to find the current velocity and position, these two differential equations can be solved. However, since the explicit velocity and accelerations functions are unknown (as they are inputted by the user), a closed form solution is not available and numerical integration must be used.

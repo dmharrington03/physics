@@ -65,6 +65,14 @@ int main()
 			}
 		}
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+		{
+			ball.setPosition(width / 2, width / 2);
+			v = 0.0;
+			a = 0.0;
+			x = 0.0;
+		}
+
 		// User input for changing acceleration
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 			a += -0.1 * dt;

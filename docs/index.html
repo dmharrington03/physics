@@ -4,26 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- UIKit -->
+    <link rel="stylesheet" href="uikit/css/uikit.min.css" />
+    <script src="uikit/js/uikit.min.js"></script>
+    <script src="uikit/js/uikit-icons.min.js"></script>
+
+    <!-- Katex -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="index.css">
+
     <title>Physics</title>
 </head>
 <body>
-    <div class="row">
-        <div class="col s6 offset-s3" style="text-align: center; background: cornsilk;">
-            <h1>This is a column</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s3 teal">
-            <a class="waves-effect waves-light btn">button</a>
-        </div>
-        <div class="col s9 blue">
-            <div class="container">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+        <nav id="nav-bg" class="uk-navbar-container uk-light uk-fixed" uk-navbar>
+            <div class="uk-navbar-center">
+                <a href="" class="uk-navbar-item uk-logo">Computational Physics</a>
             </div>
-        </div>
+        </nav>
     </div>
+
+   
+    <div id="header-bg" 
+        class="uk-background-cover uk-background-top-left
+            uk-height-large 
+            uk-light uk-flex uk-flex-center uk-flex-middle
+            " uk-parallax="bgy: 0, -150;">
+        <h1>Kinematics - 1D</h1>
+    </div>
+
+    <main class="uk-height-large uk-container uk-flex uk-flex-middle uk-flex-column" style="border: 2px solid red;">
+
+        <blockquote cite="#" class="uk-margin-top">
+            <p class="uk-margin-small-bottom">Nothing happens until something moves.</p>
+            <footer>Albert Einstein</footer>
+        </blockquote>
+       
+        <p>
+            hello good people [content]
+            
+        </p>
+
+    </main>
     
+
 </body>
 </html>

@@ -3,7 +3,7 @@
 int main()
 {
 	const int width = 1600;
-	sf::RenderWindow window(sf::VideoMode(width, width), "Kinematics", sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(width, width), "Kinematics", sf::Style::Default);
 
 	sf::Font font;
 	if (!font.loadFromFile("Roboto Mono Medium for Powerline.ttf"))
@@ -12,29 +12,29 @@ int main()
 	sf::Text valuesText;
 	valuesText.setFont(font);
 	valuesText.setCharacterSize(50);
-	valuesText.setFillColor(sf::Color::White);
+	valuesText.setFillColor(sf::Color(20, 20, 20));
 	valuesText.setPosition(20, 20);
 
 	sf::Text mathText;
 	mathText.setFont(font);
 	mathText.setCharacterSize(40);
-	mathText.setFillColor(sf::Color::White);
+	mathText.setFillColor(sf::Color(20, 20, 20));
 	mathText.setPosition(20, 1200);
 
 	const float radius = 80.0;
 	sf::CircleShape ball(radius);
-	ball.setFillColor(sf::Color::White);
+	ball.setFillColor(sf::Color(40, 155, 90));
 	ball.setOrigin(sf::Vector2f(radius, radius));
 	ball.setPosition(sf::Vector2f(100, width / 2));
 
 	sf::RectangleShape axis(sf::Vector2f(width, 6));
-	axis.setFillColor(sf::Color(150, 150, 150));
+	axis.setFillColor(sf::Color(40, 40, 40));
 	axis.setOrigin(width / 2, 2);
 	axis.setPosition(width / 2, width / 2);
 
 	const int lines = 16;
 	sf::RectangleShape gridline(sf::Vector2f(width, 2));
-	gridline.setFillColor(sf::Color(120, 120, 120));
+	gridline.setFillColor(sf::Color(40, 40, 40));
 	gridline.setOrigin(width / 2, 1);
 	gridline.setPosition(0, width / 2);
 
@@ -95,7 +95,7 @@ int main()
 		mathText.setString(xExp + '\n' + vExp + '\n' + aExp);
 		valuesText.setString("Acceleration: " + std::to_string(a).substr(0, 5) + "\nVelocity: " + std::to_string(v).substr(0, 5) + "\nPosition: " + std::to_string(x).substr(0, 6));
 
-		window.clear(sf::Color(50, 50, 70));
+		window.clear(sf::Color(230, 230, 230));
 
 		window.draw(axis);
 		axis.setRotation(90);

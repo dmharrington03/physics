@@ -16,6 +16,11 @@
     
     <link rel="stylesheet" href="index.css">
 
+    <script>
+        function resizeIframe(obj) {
+          obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+        }
+    </script>      
     <title>Physics</title>
 </head>
 <body>
@@ -37,20 +42,17 @@
         <h1>Kinematics - 1D</h1>
     </div>
 
-    <main class="uk-height-large uk-container uk-flex uk-flex-middle uk-flex-column" style="border: 2px solid red;">
 
-        <blockquote cite="#" class="uk-margin-top">
-            <p class="uk-margin-small-bottom">Nothing happens until something moves.</p>
-            <footer>Albert Einstein</footer>
-        </blockquote>
-       
-        <p>
-            hello good people [content]
-            
-        </p>
-
-    </main>
+    <iframe id="main-content" src="kinematics-1d.html" 
+    frameborder="0" 
+    scrolling="no" 
+    onload="resizeIframe(this)"
+    class="uk-margin-top uk-margin-bottom">
+    </iframe>
     
+    <footer class="uk-height-small uk-flex uk-flex-center uk-background-secondary">
+
+    </footer>
 
 </body>
 </html>

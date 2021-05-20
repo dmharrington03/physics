@@ -77,14 +77,15 @@ int main()
 
 		//TODO /* ಥ﹏ಥ */ fix angle
 
-		theta = -(180 / PI) * (float)std::atan2(width - mousePos.y, mousePos.x);
-		trajectory.setRotation(theta);
+		theta = (180 / PI) * (float) std::atan2(width - mousePos.y, mousePos.x);
+		text.setString("Theta" + std::to_string(theta));
+		trajectory.setRotation(-theta);
 		trajectory.setSize(sf::Vector2f(trajectoryMagnitude, 6));
 
 		// xComp.setPosition(mousePos.x, width - width / lines);
-		xComp.setSize(sf::Vector2f(trajectoryMagnitude * std::cos(theta), 6));
-		yComp.setSize(sf::Vector2f(6, trajectoryMagnitude * std::sin(theta)));
-		// yComp.setPosition(mousePos.x * 0.25 + width / lines, width - width / lines - radius);
+		xComp.setSize(sf::Vector2f(trajectoryMagnitude * std::cos(theta * PI / 180), 6));
+		yComp.setSize(sf::Vector2f(6, trajectoryMagnitude * std::sin(theta * PI / 180)));
+		yComp.setPosition(ball.getPosition().x + xComp.getSize().x ,width - width / lines - radius);
 		// yComp.setPosition(width - width / lines, mousePos.y);
 
 		window.clear(sf::Color(50, 50, 70));

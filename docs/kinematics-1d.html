@@ -5,22 +5,49 @@
   <script src="uikit/js/uikit-icons.min.js"></script>
   <link rel="stylesheet" href="index.css">
 
+  <!-- Katex -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
+    });
+  </script>
+
+  <!-- Prism -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-cpp.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css">
 </head>
 <body> 
 
-  <div class="uk-container uk-flex uk-flex-middle uk-flex-column">
-    <blockquote cite="#" class="uk-margin-top">
-       <p class="uk-margin-small-bottom">Nothing happens until something moves.</p>
-       <footer>Albert Einstein</footer>
-    </blockquote>
+  <div class="uk-container uk-flex uk-flex-middle uk-flex-column uk-margin-top uk-margin-large-bottom">
     <h3>Kinematics - 1D</h3>
+    <blockquote cite="#" class="uk-margin-top">
+      <p class="uk-margin-small-bottom">Nothing happens until something moves.</p>
+      <footer>Albert Einstein</footer>
+    </blockquote>
     <p>
     To create an accurate kinematics physics simulation, the relationships between position, velocity, and acceleration can be used.
-    $a(t)=\dfrac{dv}{dt}$$
+    $$v(t)=\dfrac{dx}{dt}$$
+    $$a(t)=\dfrac{dv}{dt}$$
     
-    here $a(t)$ is acceleration, $v(t)$ is velocity, and $x(t)$ is position. If we start from a known acceleration and initial position, which this program will, then to find the current velocity and position, these two differential equations can be solved. However, since the explicit velocity and accelerations functions are unknown (as they are inputted by the user), a closed form solution is not available and numerical integration must be used.
+    Where $a(t)$ is acceleration, $v(t)$ is velocity, and $x(t)$ is position. If we start from a known acceleration and initial position, which this program will, then to find the current velocity and position, these two differential equations can be solved. However, since the explicit velocity and accelerations functions are unknown (as they are inputted by the user), a closed form solution is not available and numerical integration must be used.
     
-    ne of the simplest numerical integration methods, Euler's method, comes from the definition of the derivative.
+    One of the simplest numerical integration methods, Euler's method, comes from the definition of the derivative.
     </p>
     <p>
      $$v(t)=\dfrac{dx}{dt}=\lim_{\Delta t \to 0} \frac{x(t+\Delta t)-x(t)}{\Delta t}$$
@@ -39,10 +66,10 @@
      
      In this simulation, the velocity at the current timestep will be calculated from the previous time step. The current velocity will then be used to find $x(t + \Delta t)$, i.e., the position that the ball will move to.
      
-     In code, this looks like choosing a set value of $\Delta t$, in this case, `0.01`, and calculating velocity and position for each timestep.
+     In code, this looks like choosing a set value of $\Delta t$, in this case, <code>0.01</code>, and calculating velocity and position for each timestep.
     </p>
     
-    <pre><code>
+    <pre><code class="lang-cpp">
      double v = 0.0; // Velocity
      double a = 0.0; // Acceleration
      double x = 0.0; // Position
@@ -57,9 +84,11 @@
      }
     </code></pre>
     <p>
-    ote that in the actual program, the `a * dt` and `v * dt` terms are calculated separately so they can be displayed in the text, but the overall process is the same.
+    Note that in the actual program, the <code>a * dt</code> and <code>v * dt</code> terms are calculated separately so they can be displayed in the text, but the overall process is the same.
     
-    or more information on this subject, Gaffer on Games provides helpful articles on [numerical integration](https://gafferongames.com/post/integration_basics/) and [timesteps](https://gafferongames.com/post/fix_your_timestep/).
+    or more information on this subject, Gaffer on Games provides helpful articles on 
+    <a href="https://gafferongames.com/post/integration_basics/">numerical integration</a> and 
+    <a href="https://gafferongames.com/post/fix_your_timestep/">timesteps</a>.
     </p>
   </div>
 </body>

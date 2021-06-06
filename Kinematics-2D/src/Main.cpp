@@ -1,5 +1,4 @@
-#include "Platform/Platform.hpp"
-
+#include "Headers.hpp"
 #define PI 3.141592
 
 int main()
@@ -16,7 +15,6 @@ int main()
 	text.setCharacterSize(50);
 	text.setFillColor(sf::Color::White);
 	text.setPosition(20, 20);
-	text.setString("Hello World");
 
 	const float radius = 50.0;
 	const int lines = 16;
@@ -56,6 +54,8 @@ int main()
 	yComp.setPosition(ball.getPosition());
 	yComp.setRotation(180);
 
+	std::vector<sf::Vector2f> trajectoryCurve;
+
 	sf::Event event;
 	while (window.isOpen())
 	{
@@ -75,18 +75,21 @@ int main()
 		vComponents = sf::Vector2f(mousePos.x - width / lines, width - mousePos.y - width / lines);
 		trajectoryMagnitude = std::hypot(vComponents.x, vComponents.y) * 0.25;
 
-		//TODO /* ಥ﹏ಥ */ fix angle
+
+		//! testing
+		trajectoryCurve = createPointArray(vComponents, -0.5, 5.0);
+		text.setString("Last point-y: " + std::to_string(trajectoryCurve.back().y));
+
+
+
 
 		theta = (180 / PI) * (float) std::atan2(width - mousePos.y, mousePos.x);
-		text.setString("Theta" + std::to_string(theta));
 		trajectory.setRotation(-theta);
 		trajectory.setSize(sf::Vector2f(trajectoryMagnitude, 6));
 
-		// xComp.setPosition(mousePos.x, width - width / lines);
 		xComp.setSize(sf::Vector2f(trajectoryMagnitude * std::cos(theta * PI / 180), 6));
 		yComp.setSize(sf::Vector2f(6, trajectoryMagnitude * std::sin(theta * PI / 180)));
 		yComp.setPosition(ball.getPosition().x + xComp.getSize().x ,width - width / lines - radius);
-		// yComp.setPosition(width - width / lines, mousePos.y);
 
 		window.clear(sf::Color(50, 50, 70));
 
@@ -103,6 +106,15 @@ int main()
 			gridline.setRotation(90);
 			gridline.setPosition(i * (width / lines), width / 2);
 			window.draw(gridline);
+		}
+
+		for (int i = 0; i < (int) trajectoryCurve.size(); i++)
+		{
+			sf::CircleShape point(10);
+			point.setOrigin(10, 10);
+			point.setFillColor(sf::Color::Magenta);
+			point.setPosition(ball.getPosition().x + trajectoryCurve[i].x, ball.getPosition().y - trajectoryCurve[i].y);
+			window.draw(point);
 		}
 
 		window.draw(text);

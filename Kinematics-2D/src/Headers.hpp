@@ -1,0 +1,1 @@
+std::vector<sf::Vector2f> createPointArray(sf::Vector2f vel, double g, double dt);

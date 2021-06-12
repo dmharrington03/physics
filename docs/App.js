@@ -18,17 +18,8 @@ fetch("/markdown/kinematics-1d.md")
     .catch((error) => console.log(error));
 
 
-function NavHeader(props) {
-
-    const bgStyle = {
-        backgroundImage: `linear-gradient(to right, rgba(50, 50, 50, 0), rgba(20, 20, 20, .8)), 
-                    url('img/img${ props.index }.png')`,
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-    };
-    
-    const out = 
-    <div>
+function TitleBar () {
+    return (
         <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
             <nav id="nav-bg" className="uk-navbar-container uk-light uk-fixed">
                 <div className="uk-navbar-center">
@@ -36,6 +27,23 @@ function NavHeader(props) {
                 </div>
             </nav>
         </div>
+    );
+}
+
+function NavHeader (props) {
+
+    document.getElementsByTagName('title')[0].innerHTML = props.title;
+
+    const bgStyle = {
+        backgroundImage: `linear-gradient(to right, rgba(50, 50, 50, 0), rgba(20, 20, 20, .8)), 
+                    url('img/img${ props.index }.png')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+    };
+
+    const out = 
+    <div>
+        <TitleBar />
         <div id="header-bg" 
             className="uk-background-cover uk-background-top-left
             uk-height-large 
@@ -48,6 +56,7 @@ function NavHeader(props) {
     
     return out;
 }
+
 
 
 ReactDOM.render(<NavHeader title="Kinematics - 1D" index="0"/>, document.getElementById('head'));

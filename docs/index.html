@@ -11,50 +11,32 @@
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
-
-    <!-- Katex -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
     
+    
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="index.css">
 
-    <script>
-        function resizeIframe(obj) {
-          obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
-        }
-    </script>      
+    <!-- <script src="App.js"></script> -->
+    
     <title>Physics</title>
 </head>
 <body>
 
-    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-        <nav id="nav-bg" class="uk-navbar-container uk-light uk-fixed" uk-navbar>
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" class="uk-sticky uk-sticky-fixed" style="position: fixed; top: 0px; width: 1035px;">
+        <nav id="nav-bg" class="uk-navbar-container uk-light uk-fixed uk-navbar">
             <div class="uk-navbar-center">
                 <a href="" class="uk-navbar-item uk-logo">Computational Physics</a>
             </div>
         </nav>
     </div>
-
-   
-    <div id="header-bg" 
-      class="uk-background-cover uk-background-top-left
-        uk-height-large 
-        uk-light uk-flex uk-flex-center uk-flex-middle" 
-        uk-parallax="bgy: 0, -150;">
-    <h1>Kinematics - 1D</h1>
-  </div>
-
-
-    <iframe id="main-content" src="kinematics-1d.html" 
-        frameborder="0" 
-        scrolling="no" 
-        onload="resizeIframe(this)"
-        class="uk-margin-top uk-margin-bottom">
-    </iframe>
     
+    <div id="root"></div>
+
+    <!--TODO fix routing, change to CLI environment -->
     <footer class="uk-height-small uk-flex uk-flex-center uk-background-secondary">
-
     </footer>
-
+    
+    
 </body>
 </html>

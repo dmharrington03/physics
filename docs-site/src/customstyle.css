@@ -1,0 +1,11 @@
+#nav-bg {
+  background: linear-gradient(to left, #2e8b57, #2bb383, #28a8a0);
+  color: white;
+}
+
+#main-content {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}

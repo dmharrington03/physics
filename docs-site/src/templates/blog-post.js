@@ -3,8 +3,9 @@ import { Link, graphql } from "gatsby";
 
 import Seo from "../components/seo";
 import TitleBar from "../components/titlebar";
+import ArticleHeader from "../components/article-header";
 
-const BlogPostTemplate = ({ data, location }) => {
+const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark;
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const { previous, next } = data;
@@ -16,6 +17,7 @@ const BlogPostTemplate = ({ data, location }) => {
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
+      <ArticleHeader title={post.frontmatter.title} imgURL={data.file ? data.file.publicURL : ""}/>
       <div className="uk-container uk-margin-top">
         <article
           className="blog-post"
@@ -69,6 +71,7 @@ export default BlogPostTemplate;
 export const pageQuery = graphql`
   query BlogPostBySlug(
     $id: String!
+    $title: String
     $previousPostId: String
     $nextPostId: String
   ) {
@@ -76,6 +79,9 @@ export const pageQuery = graphql`
       siteMetadata {
         title
       }
+    }
+    file(name: {eq: $title }, relativeDirectory: {eq: "header-images"}) {
+      publicURL
     }
     markdownRemark(id: { eq: $id }) {
       id

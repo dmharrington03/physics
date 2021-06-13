@@ -10,6 +10,7 @@ import ArticleCard from "../components/article-card";
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;
+  const images = data.allFile.nodes;
 
   if (posts.length === 0) {
     return (
@@ -32,10 +33,12 @@ const BlogIndex = ({ data, location }) => {
         <div className="uk-grid uk-text-center" data-uk-grid>
           {posts.map((post) => {
             const title = post.frontmatter.title || post.fields.slug;
-
+            const imgMatch = images.find((node) => post.frontmatter.title === node.name);
             return (
               <div className="uk-width-1-3@m uk-width-1-2@s">
-                <ArticleCard title={title} to={post.fields.slug} />
+                <ArticleCard title={title} 
+                  to={post.fields.slug} 
+                  imgURL={ imgMatch ? imgMatch.publicURL : "" }/>
               </div>
             );
           })}
@@ -65,6 +68,12 @@ export const pageQuery = graphql`
           title
           description
         }
+      }
+    }
+    allFile(filter: {relativeDirectory: {eq: "header-images"}}) {
+      nodes {
+        publicURL
+        name
       }
     }
   }

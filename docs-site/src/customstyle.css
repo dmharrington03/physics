@@ -10,8 +10,34 @@
   height: 100%;
 }
 
-#gitButton {
+#coolButton {
   border-radius: 10px;
   padding: 2px 8px;
   text-transform: none;
+}
+
+#coolButton:focus {
+  color: #2483d7;
+}
+
+.uk-logo:hover {
+  filter: brightness(95%);
+  transition: filter .2s ease-in-out;
+}
+
+.uk-logo {
+  transition: filter .2s ease-in-out;
+}
+
+.card-link:hover {
+  text-decoration: none;
+  cursor: default;
+}
+
+.post-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
 }

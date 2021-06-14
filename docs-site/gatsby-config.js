@@ -1,11 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Computational Physics`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Daniel Harrington`,
+      summary: `Student, programmer, wannabe physicist`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    description: `A blog showcasing physics concepts made in code`,
     siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
     social: {
       twitter: `kylemathews`,

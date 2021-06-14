@@ -8,7 +8,6 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
-    "fsevents": "^2.3.2",
     "gatsby": "^3.6.2",
     "gatsby-plugin-feed": "^3.6.0",
     "gatsby-plugin-gatsby-cloud": "^2.6.1",
@@ -38,6 +37,9 @@
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75",
     "uikit": "^3.6.22"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   },
   "devDependencies": {
     "prettier": "2.2.1"

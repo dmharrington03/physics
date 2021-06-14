@@ -1,13 +1,14 @@
 ---
-title: Physics
+title: Kinematics - 1D
 date: 2021-06-12T09:28:36.992Z
 description: very epic
 ---
-### Kinematics - 1D
 
 > Nothing happens until something moves
 > 
 > <footer>Albert Einstein</footer>
+
+---
 
 To create an accurate kinematics physics simulation, the relationships between position, velocity, and acceleration can be used.
 

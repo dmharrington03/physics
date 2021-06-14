@@ -5,11 +5,16 @@ import Seo from "../components/seo";
 import TitleBar from "../components/titlebar";
 import ArticleHeader from "../components/article-header";
 import "katex/dist/katex.min.css";
+import UIkit from "uikit";
+import Icons from 'uikit/dist/js/uikit-icons';
 
 const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark;
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const { previous, next } = data;
+  UIkit.use(Icons);
+
+
 
   return (
     <div>
@@ -29,40 +34,60 @@ const BlogPostTemplate = ({ data }) => {
             <h1 itemProp="headline">{post.frontmatter.title}</h1>
             <p>{post.frontmatter.date}</p>
           </header>
+          <a href={`https://github.com/dmharrington03/physics/tree/master/${post.frontmatter.title.replace(/\s+/g, '')}`}
+            id="gitButton" 
+            className="uk-button uk-button-default uk-margin-bottom"
+            target="_blank"
+          >
+            <span data-uk-icon="github"></span>
+            &nbsp;View on Github
+          </a>
           <section
             dangerouslySetInnerHTML={{ __html: post.html }}
             itemProp="articleBody"
           />
           <hr />
         </article>
+        <nav className="blog-post-nav">
+          <ul
+            style={{
+              display: `flex`,
+              flexWrap: `wrap`,
+              justifyContent: `space-between`,
+              listStyle: `none`,
+              padding: 0,
+            }}
+          >
+            <li>
+              {previous && (
+                <Link to={previous.fields.slug} rel="prev">
+                  ← {previous.frontmatter.title}
+                </Link>
+              )}
+            </li>
+            <li>
+              {next && (
+                <Link to={next.fields.slug} rel="next">
+                  {next.frontmatter.title} →
+                </Link>
+              )}
+            </li>
+          </ul>
+        </nav>
       </div>
 
-      <nav className="blog-post-nav">
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
-      </nav>
+
+      <footer class="uk-height-small uk-flex uk-flex-center 
+              uk-background-secondary uk-flex-column
+              uk-flex-middle uk-light">
+          <p>Daniel Harrington</p>
+          <ul class="uk-iconnav">
+            <li><a href="https://github.com/dmharrington03" 
+              data-uk-icon="icon: github-alt; ratio: 1.2"
+              target="_blank"></a>
+            </li>
+          </ul>
+      </footer>
     </div>
   );
 };

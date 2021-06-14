@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby";
 import Seo from "../components/seo";
 import TitleBar from "../components/titlebar";
 import ArticleHeader from "../components/article-header";
+import "katex/dist/katex.min.css";
 
 const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark;

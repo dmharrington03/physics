@@ -30,7 +30,7 @@ const BlogIndex = ({ data, location }) => {
     <div>
       <TitleBar />
       <div className="uk-container uk-margin-top">
-        <div className="uk-grid uk-text-center" data-uk-grid>
+        <div className="uk-grid uk-grid-match" data-uk-grid>
           {posts.map((post) => {
             const title = post.frontmatter.title || post.fields.slug;
             const imgMatch = images.find((node) => post.frontmatter.title === node.name);
@@ -38,7 +38,10 @@ const BlogIndex = ({ data, location }) => {
               <div className="uk-width-1-3@m uk-width-1-2@s">
                 <ArticleCard title={title} 
                   to={post.fields.slug} 
-                  imgURL={ imgMatch ? imgMatch.publicURL : "" }/>
+                  imgURL={ imgMatch ? imgMatch.publicURL : "" }
+                  tag={posts.indexOf(post) === 0 ? "New!" : ""}
+                  date={post.frontmatter.date}
+                />
               </div>
             );
           })}

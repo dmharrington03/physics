@@ -35,7 +35,7 @@ const BlogPostTemplate = ({ data }) => {
             <p>{post.frontmatter.date}</p>
           </header>
           <a href={`https://github.com/dmharrington03/physics/tree/master/${post.frontmatter.title.replace(/\s+/g, '')}`}
-            id="gitButton" 
+            id="coolButton" 
             className="uk-button uk-button-default uk-margin-bottom"
             target="_blank"
           >
@@ -60,16 +60,20 @@ const BlogPostTemplate = ({ data }) => {
           >
             <li>
               {previous && (
-                <Link to={previous.fields.slug} rel="prev">
+                <a href={previous.fields.slug} rel="prev"
+                  className="uk-button uk-button-default uk-margin=bottom"
+                  id="coolButton">
                   ← {previous.frontmatter.title}
-                </Link>
+                </a>
               )}
             </li>
             <li>
               {next && (
-                <Link to={next.fields.slug} rel="next">
+                <a href={next.fields.slug} rel="next"
+                  className="uk-button uk-button-default uk-margin=bottom"
+                  id="coolButton">
                   {next.frontmatter.title} →
-                </Link>
+                </a>
               )}
             </li>
           </ul>

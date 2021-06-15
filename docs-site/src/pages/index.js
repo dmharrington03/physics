@@ -25,6 +25,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <div>
+      <Seo title="Computational Physics" />
       <TitleBar />
       <div className="uk-container uk-margin-top">
         <div className="uk-grid uk-grid-match" data-uk-grid>

@@ -45,6 +45,9 @@ const BlogIndex = ({ data, location }) => {
           })}
         </div>
       </div>
+      <footer className="uk-height-small">
+    
+      </footer>
     </div>
   );
 };

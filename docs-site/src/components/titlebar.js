@@ -18,7 +18,7 @@ export default function TitleBar() {
         </nav>
       </div>
       <div
-        class="uk-sticky-placeholder"
+        className="uk-sticky-placeholder"
         style={{ height: "80px", margin: "0px" }}
       ></div>
     </div>

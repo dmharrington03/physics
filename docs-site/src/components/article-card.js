@@ -6,8 +6,8 @@ export default function ArticleCard({title, to, imgURL, tag, date}) {
       
       <a href={ to } className="card-link">
         <div className="uk-card-media-top">
-          <img src={ imgURL } height="auto" data-uk-img/>
-          <div class="uk-overlay uk-position-top-right uk-padding-small">
+          <img src={ imgURL } height="auto" alt="Article" data-uk-img/>
+          <div className="uk-overlay uk-position-top-right uk-padding-small">
             <span className="uk-label">{ tag }</span>
           </div>
         </div>

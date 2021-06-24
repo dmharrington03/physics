@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 
 import Seo from "../components/seo";
 import TitleBar from "../components/titlebar";
@@ -10,7 +10,6 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark;
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
   const { previous, next } = data;
   UIkit.use(Icons);
 
@@ -38,6 +37,7 @@ const BlogPostTemplate = ({ data }) => {
             id="coolButton" 
             className="uk-button uk-button-default uk-margin-bottom"
             target="_blank"
+            rel="noreferrer"
           >
             <span data-uk-icon="github"></span>
             &nbsp;View on Github
@@ -73,14 +73,14 @@ const BlogPostTemplate = ({ data }) => {
       </div>
 
 
-      <footer class="uk-height-small uk-flex uk-flex-center 
+      <footer className="uk-height-small uk-flex uk-flex-center 
               uk-background-secondary uk-flex-column
               uk-flex-middle uk-light">
           <p>Daniel Harrington</p>
-          <ul class="uk-iconnav">
+          <ul className="uk-iconnav">
             <li><a href="https://github.com/dmharrington03" 
               data-uk-icon="icon: github-alt; ratio: 1.2"
-              target="_blank"></a>
+              target="_blank" rel="noreferrer"></a>
             </li>
           </ul>
       </footer>

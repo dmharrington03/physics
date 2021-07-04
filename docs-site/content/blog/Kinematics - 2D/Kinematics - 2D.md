@@ -34,4 +34,34 @@ In C++ there is a helpful function that will perform the last calculation for us
 trajectoryMagnitude = std::hypot(vComponents.x, vComponents.y);
 ```
 
-From this information, we can set the sizes, positions, and rotations of the rectangles that will display the ball's velocity and its components.
+From this information, we can set the sizes, positions, and rotations of the rectangles that will display the ball's velocity and its components and add some text, resulting in the following.
+
+![Screenshot of program showing velocity vector components](Fig2.png)
+
+Right now nothing else will happen – the ball can't move. To add movement, we need to know the equations of motion to solve for each timestep. To find these equations, we can start from acceleration and integrate repeatedly until we get an expression for position. Since our ball is effected by gravity, which is constant, its acceleration in the vertical direction is constant. In the horizontal direction, there is no acceleration (assuming no air resistance) since gravity only acts downward.
+
+$$
+a(t) = g
+\\
+v(t) = \int a(t) \,dt = gt + v_0
+\\
+s(t) = \int v(t) \, dt = s_0 + tv_0 + \frac{1}{2} gt^2
+$$
+
+If there is no acceleration from gravity, as is the case for the horizontal component, the displacement equation is simplified:
+
+$$
+s(t) = \int v(t) \, dt = s_0 + tv_0
+$$
+
+Now that the equations of motion are known, we can use the same integration techniques as the purely 1D simulation to solve for the values each timestep. Since there is no horizontal acceleration, the horizontal velocity remains constant.
+
+$$
+v_1 \approx v_0 + g\Delta t
+\\
+s_1 \approx s_0 + v\Delta t
+$$
+
+The ball will now fly through the "air" the same way it would in real life. There's one more feature that I'd like to add, a dotted path showing the trajectory reminiscent of games like Angry Birds or Raft Wars.
+
+![Angry Birds screenshot](Fig3.png)

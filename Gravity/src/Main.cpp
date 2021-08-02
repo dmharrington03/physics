@@ -1,4 +1,7 @@
 #include "Platform/Platform.hpp"
+#include "Header.hpp"
+
+//TODO Cleanup, add paths, to scale
 
 int main()
 {
@@ -16,11 +19,10 @@ int main()
 	text.setPosition(20, 20);
 	text.setString("Hello World");
 
-	const float radius = 80.0;
-	sf::CircleShape planet1(radius);
-	planet1.setFillColor(sf::Color::White);
-	planet1.setOrigin(sf::Vector2f(radius, radius));
-	planet1.setPosition(sf::Vector2f(width / 2, width / 2));
+	Planet sun(sf::Vector2f(width / 2, width / 2), 100.0, 40.0);
+	Planet planet(sf::Vector2f(width / 2, width / 2 + 300), 1.0, 30.0);
+	planet.setFillColor(sf::Color(150, 75, 45));
+	planet.velocity = sf::Vector2f(.1, -.1);
 
 	sf::RectangleShape axis(sf::Vector2f(width, 6));
 	axis.setFillColor(sf::Color(150, 150, 150));
@@ -32,6 +34,8 @@ int main()
 	gridline.setFillColor(sf::Color(80, 80, 80));
 	gridline.setOrigin(width / 2, 1);
 	gridline.setPosition(0, width / 2);
+
+	const double dt = 2;
 
 	sf::Event event;
 	while (window.isOpen())
@@ -47,6 +51,11 @@ int main()
 					continue;
 			}
 		}
+
+
+		text.setString(std::to_string(Update(&planet, &sun, dt)) + "\n" + std::to_string(planet.velocity.y));
+		planet.doMotion(dt);
+
 
 		window.clear(sf::Color(50, 50, 50));
 
@@ -66,7 +75,8 @@ int main()
 		}
 
 		window.draw(text);
-		window.draw(planet1);
+		window.draw(planet);
+		window.draw(sun);
 		window.display();
 	}
 

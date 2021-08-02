@@ -19,10 +19,12 @@ int main()
 	text.setPosition(20, 20);
 	text.setString("Hello World");
 
-	Planet sun(sf::Vector2f(width / 2, width / 2), 100.0, 40.0);
-	Planet planet(sf::Vector2f(width / 2, width / 2 + 300), 1.0, 30.0);
+	Planet sun(sf::Vector2f(width / 2, width / 2), 1000.0, 40.0);
+	Planet planet(sf::Vector2f(width / 2, width / 2 + 400), 1.0, 30.0);
 	planet.setFillColor(sf::Color(150, 75, 45));
-	planet.velocity = sf::Vector2f(.1, -.1);
+
+	// Initial tangential velocity
+	planet.velocity = sf::Vector2f(1.5, -.5);
 
 	sf::RectangleShape axis(sf::Vector2f(width, 6));
 	axis.setFillColor(sf::Color(150, 150, 150));
@@ -35,7 +37,7 @@ int main()
 	gridline.setOrigin(width / 2, 1);
 	gridline.setPosition(0, width / 2);
 
-	const double dt = 2;
+	const double dt = 0.1;
 
 	sf::Event event;
 	while (window.isOpen())
@@ -53,8 +55,8 @@ int main()
 		}
 
 
-		text.setString(std::to_string(Update(&planet, &sun, dt)) + "\n" + std::to_string(planet.velocity.y));
-		planet.doMotion(dt);
+		text.setString(std::to_string(Planet::UpdateForce(&planet, &sun, dt)) + "\n" + std::to_string(planet.velocity.y));
+		planet.DoMotion(dt);
 
 
 		window.clear(sf::Color(50, 50, 50));

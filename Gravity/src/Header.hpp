@@ -6,7 +6,8 @@ class Planet : public sf::CircleShape
 		double mass;
 		static double ComputeDistance(const sf::Vector2f pos1, const sf::Vector2f pos2);
 
-		void doMotion(const float& dt);
+		void DoMotion(const float& dt);
+		static double UpdateForce(Planet* body, const Planet* sun, const float& dt);
 
 		Planet(const sf::Vector2f pos, const double m, const int rad) : sf::CircleShape(rad), velocity(0, 0), mass(m)
 		{
@@ -16,5 +17,3 @@ class Planet : public sf::CircleShape
 			std::cout << Planet::mass;
 		};
 };
-
-double Update(Planet* body, const Planet* sun, const float& dt);

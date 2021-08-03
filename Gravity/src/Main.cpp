@@ -19,12 +19,15 @@ int main()
 	text.setPosition(20, 20);
 	text.setString("Hello World");
 
-	Planet sun(sf::Vector2f(width / 2, width / 2), 1000.0, 40.0);
-	Planet planet(sf::Vector2f(width / 2, width / 2 + 400), 1.0, 30.0);
-	planet.setFillColor(sf::Color(150, 75, 45));
+	Planet sun(sf::Vector2f(width / 2, width / 2), 1000.0, 50.0);
+	Planet earth(sf::Vector2f(width / 2, width / 2 + 400), 1.0, 30.0);
+	Planet mars(sf::Vector2f(width / 2, width / 2 + 600), 1.0, 30.0);
+	earth.setFillColor(sf::Color(30, 60, 250));
+	mars.setFillColor(sf::Color(150, 80, 50));
 
 	// Initial tangential velocity
-	planet.velocity = sf::Vector2f(1.5, -.5);
+	earth.velocity = sf::Vector2f(1.5, 0);
+	mars.velocity = sf::Vector2f(1.3, 0);
 
 	sf::RectangleShape axis(sf::Vector2f(width, 6));
 	axis.setFillColor(sf::Color(150, 150, 150));
@@ -38,6 +41,7 @@ int main()
 	gridline.setPosition(0, width / 2);
 
 	const double dt = 0.1;
+
 
 	sf::Event event;
 	while (window.isOpen())
@@ -54,9 +58,11 @@ int main()
 			}
 		}
 
+		Planet::UpdateForce(&mars, &sun, dt);
+		text.setString(std::to_string(Planet::UpdateForce(&earth, &sun, dt)) + "\n" + std::to_string(earth.velocity.y));
 
-		text.setString(std::to_string(Planet::UpdateForce(&planet, &sun, dt)) + "\n" + std::to_string(planet.velocity.y));
-		planet.DoMotion(dt);
+		earth.DoMotion(dt);
+		mars.DoMotion(dt);
 
 
 		window.clear(sf::Color(50, 50, 50));
@@ -77,7 +83,8 @@ int main()
 		}
 
 		window.draw(text);
-		window.draw(planet);
+		window.draw(earth);
+		window.draw(mars);
 		window.draw(sun);
 		window.display();
 	}

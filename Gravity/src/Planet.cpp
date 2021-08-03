@@ -10,8 +10,6 @@ double Planet::ComputeDistance(sf::Vector2f pos1, sf::Vector2f pos2)
 
 double Planet::UpdateForce(Planet* body, const Planet* sun, const float& dt)
 {
-	/* Update the velocity of each planet according to the force of gravity exerted on it by every
-	other planet, calculated from Newton's Law of Gravitation */
 
 	double deltaPMag = Planet::ComputeDistance(sun->getPosition(), body->getPosition());
 	sf::Vector2f deltaP(sun->getPosition().x - body->getPosition().x, sun->getPosition().y - body->getPosition().y);

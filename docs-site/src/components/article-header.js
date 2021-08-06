@@ -21,6 +21,6 @@ const ArticleHeader = ({imgURL, title}) => {
   </div>;
 
   return out;
-}
+};
 
 export default ArticleHeader;

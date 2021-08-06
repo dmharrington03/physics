@@ -14,6 +14,5 @@ class Planet : public sf::CircleShape
 			Planet::setPosition(pos);
 			Planet::setFillColor(sf::Color(245, 225, 70));
 			Planet::setOrigin(sf::Vector2f(Planet::getRadius(), Planet::getRadius()));
-			std::cout << Planet::mass;
 		};
 };

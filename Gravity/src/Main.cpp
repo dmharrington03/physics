@@ -2,7 +2,7 @@
 #include "Header.hpp"
 
 //TODO Cleanup, add paths, to scale
-
+// writing this from my chromebook
 int main()
 {
 	const int width = 1600;

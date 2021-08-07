@@ -22,6 +22,18 @@ In reality, every object attracts every other object due to gravity. However, bo
 
 Another assumption we can make is that the sun is not affected by the planets' gravitational pull. In our solar system, the sun is about a million times as massive as the Earth, so the Earth's effect on it is comparatively small.
 
-It is convenient to create a planet class that inherits from SFML's CircleShape class. It will hold a mass, velocity vector, and allow use of the inherited position setters, getters, and drawing to the window.
+It is convenient to create a planet class that inherits from SFML's CircleShape class. It will hold a mass, velocity vector, and allow use of the inherited position setters and getters, and drawing to the window.
 
+Now that we can store the information about each planet, we can calculate their motion.
 
+![hi](Fig1.png)
+
+Gravity will always attract the planet inward towards the sun. We can start the planet off with some initial velocity, and the center-directed gravitational force and the planet's inertia will result in an elliptical orbit.
+
+Out of the formula for gravity, only one value is unknown, $r$, This is just the distance between the bodies and can be found easily with the Pythagorean theorem.
+
+$$
+r^2 = (x_2-x_1)^2+(y_2-y_1)^2
+$$
+
+The $G$ term in the formula is a universal constant, equal to around $6.67 \times 10^{-11}$, but since our mass and radius values are not on astronomical scales, this number can be much larger, and experimenting with timestep and mass values led me to just set the $G$ value to $1$, effectively omitting it.

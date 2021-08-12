@@ -1,4 +1,6 @@
+#include "Header.hpp"
 #include "Platform/Platform.hpp"
+
 
 int main()
 {
@@ -14,22 +16,44 @@ int main()
 	text.setCharacterSize(50);
 	text.setFillColor(sf::Color::White);
 	text.setPosition(20, 20);
-	text.setString("Hello World");
 
 	const float radius = 80.0;
+
 	sf::CircleShape ball(radius);
-	ball.setFillColor(sf::Color::White);
+	ball.setFillColor(sf::Color(134, 135, 181));
 	ball.setOrigin(sf::Vector2f(radius, radius));
-	ball.setPosition(sf::Vector2f(100, width / 2));
+	ball.setPosition(sf::Vector2f(width / 2, width / 2));
+	sf::Vector2f pos(ball.getPosition());
+	sf::Vector2f vel(0, 0);
+	sf::Vector2f force(0, 0);
+	sf::Vector2f distance(0, 0);
+	float force_mag = 0.0;
+	float x = 0.0;
+	const int rest_len = 500;
+	const float k = 0.00001;
+	const float gravity = 0.0005;
+
+	sf::CircleShape anchor(radius / 2);
+	anchor.setFillColor(sf::Color(11, 12, 43));
+	anchor.setOrigin(sf::Vector2f(radius / 2, radius / 2));
+	anchor.setPosition(sf::Vector2f(ball.getPosition().x, ball.getPosition().y - rest_len));
+
+	sf::RectangleShape spring;
+	setEndpoints(spring, anchor.getPosition(), ball.getPosition());
+	spring.setPosition(sf::Vector2f(width / 2, radius + 20));
+	spring.setFillColor(sf::Color::Black);
+	float spring_len = spring.getSize().y;
+
+
 
 	sf::RectangleShape axis(sf::Vector2f(width, 6));
-	axis.setFillColor(sf::Color(150, 150, 150));
+	axis.setFillColor(sf::Color(87, 55, 73));
 	axis.setOrigin(width / 2, 2);
 	axis.setPosition(width / 2, width / 2);
 
 	const int lines = 16;
 	sf::RectangleShape gridline(sf::Vector2f(width, 2));
-	gridline.setFillColor(sf::Color(120, 120, 120));
+	gridline.setFillColor(sf::Color(87, 55, 73));
 	gridline.setOrigin(width / 2, 1);
 	gridline.setPosition(0, width / 2);
 
@@ -48,7 +72,34 @@ int main()
 			}
 		}
 
-		window.clear(sf::Color(50, 50, 70));
+		// Main Logic -------------
+
+		spring_len = spring.getSize().y;
+		x = spring_len - rest_len;
+		force_mag = - k * x;
+		pos = ball.getPosition();
+
+		distance = sf::Vector2f(ball.getPosition().x - anchor.getPosition().x, ball.getPosition().y - anchor.getPosition().y);
+		normalize(distance);
+		force = distance * force_mag;
+
+		text.setString(std::to_string(force_mag));
+		force.y += gravity;
+
+		// Assume unit mass, F = ma becomes F = a
+		vel += force;
+		pos += vel;
+
+		ball.setPosition(pos);
+
+		setEndpoints(spring, anchor.getPosition(), ball.getPosition());
+
+		vel.x *= 0.999;
+		vel.y *= 0.999;
+
+		// End Main Logic --------------
+
+		window.clear(sf::Color(122, 80, 104));
 
 		window.draw(axis);
 		axis.setRotation(90);
@@ -65,9 +116,20 @@ int main()
 			window.draw(gridline);
 		}
 
-		window.draw(text);
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+		{
+			setEndpoints(spring, anchor.getPosition(), static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
+			ball.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
+			vel = sf::Vector2f(0, 0);
+		}
+
+		window.draw(spring);
 		window.draw(ball);
+		window.draw(anchor);
+		window.draw(text);
 		window.display();
+
 	}
 
 	return 0;

@@ -17,16 +17,23 @@ int main()
 	text.setFillColor(sf::Color::White);
 	text.setPosition(20, 20);
 
-	const float radius = 80.0;
+	const float radius = 20.0;
+	const int nPoints = 7;
+	const float rest_len = 150;
+	const float k = 0.000050;
+	const float gravity = 0.0005;
 
-	const int rest_len = 500;
-	const float k = 0.0001;
-	// const float gravity = 0.0005;
+	Ball point_array[nPoints];
+	Spring spring_array[nPoints - 1];
 
-	Ball bob(radius, sf::Vector2f(width / 2, width / 2));
-	Ball anchor(radius / 2, sf::Vector2f(width / 2, width / 2 - rest_len), true);
+	for (int i = 0; i < nPoints; i++)
+		point_array[i] = Ball(radius, sf::Vector2f(width / 2, 200 + rest_len * i));
 
-	Spring spring(rest_len, k, anchor, bob);
+	point_array[0].stationary = true;
+
+	for (int i = 0; i < nPoints - 1; i++)
+		spring_array[i] = Spring(rest_len, k, &point_array[i], &point_array[i + 1]);
+
 
 	sf::RectangleShape axis(sf::Vector2f(width, 6));
 	axis.setFillColor(sf::Color(87, 55, 73));
@@ -54,38 +61,15 @@ int main()
 			}
 		}
 
-		// Main Logic -------------
-
-		// spring_len = spring.getSize().y;
-		// x = spring_len - rest_len;
-		// force_mag = - k * x;
-		// pos = ball.getPosition();
-
-		// distance = sf::Vector2f(ball.getPosition().x - anchor.getPosition().x, ball.getPosition().y - anchor.getPosition().y);
-		// normalize(distance);
-		// force = distance * force_mag;
-
-		// text.setString(std::to_string(force_mag));
-		// force.y += gravity;
-
-		// // Assume unit mass, F = ma becomes F = a
-		// vel += force;
-		// pos += vel;
-
-		// ball.setPosition(pos);
-
-		// setEndpoints(spring, anchor.getPosition(), ball.getPosition());
-
-		// vel.x *= 0.999;
-		// vel.y *= 0.999;
-
-
-		spring.update();
-		bob.update();
-		anchor.update();
-		// End Main Logic --------------
 
 		window.clear(sf::Color(122, 80, 104));
+
+
+		for (int i = 0; i < nPoints - 1; i++)
+			spring_array[i].update();
+
+		for (int i = 0; i < nPoints; i++)
+			point_array[i].update(gravity);
 
 		window.draw(axis);
 		axis.setRotation(90);
@@ -104,15 +88,18 @@ int main()
 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
-			spring.setEndpoints(anchor.getPosition(), static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
-			bob.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
-			bob.vel = sf::Vector2f(0, 0);
+			spring_array[nPoints - 2].setEndpoints(point_array[nPoints - 2].getPosition(), static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
+			point_array[nPoints - 1].setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
+			point_array[nPoints - 1].vel = sf::Vector2f(0, 0);
 		}
 
 
-		window.draw(spring);
-		window.draw(bob);
-		window.draw(anchor);
+		for (int i = 0; i < nPoints; i++)
+			window.draw(point_array[i]);
+
+		for (int i = 0; i < nPoints - 1; i++)
+			window.draw(spring_array[i]);
+
 		window.draw(text);
 		window.display();
 

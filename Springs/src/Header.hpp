@@ -13,27 +13,41 @@ public:
 		setOrigin(radius, radius);
 	}
 
-	void update();
+	Ball() : vel(sf::Vector2f(0, 0)), stationary(false)
+	{
+		setPosition(0, 0);
+		setRadius(20);
+		setFillColor(sf::Color(134, 135, 181));
+		setOrigin(20, 20);
+	}
+
+	void update(const float gravity=0.0005);
 };
 
 class Spring : public sf::RectangleShape
 {
 public:
-	const float rest_len;
+	float rest_len;
 	float spring_len;
-	const float& k;
-	Ball& a;
-	Ball& b;
+	float k;
+	Ball* a;
+	Ball* b;
 
-	Spring(const float& rest_len, const float& k, Ball& a, Ball& b)
+	Spring(float rest_len, float k, Ball* a, Ball* b)
 		:  rest_len(rest_len), spring_len(rest_len), k(k), a(a), b(b)
 	{
-		setEndpoints(a.getPosition(), b.getPosition());
+		setEndpoints(a->getPosition(), b->getPosition());
+		setFillColor(sf::Color::Black);
+	}
+
+	Spring() : rest_len(100), spring_len(100), k(0.000005), a(nullptr), b(nullptr)
+	{
+		setEndpoints(sf::Vector2f(0, 0), sf::Vector2f(10, 10));
 		setFillColor(sf::Color::Black);
 	}
 
 	void setEndpoints(sf::Vector2f a, sf::Vector2f b);
-	void update(const float gravity=0.0005);
+	void update();
 
 	template <typename T>
 	static void normalize(sf::Vector2<T>& vec);

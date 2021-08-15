@@ -7,7 +7,7 @@ void Spring::setEndpoints(sf::Vector2f a, sf::Vector2f b)
 	setPosition(a);
 	// Compute length of distance between points
 	const float len = std::hypotf(b.x - a.x, b.y - a.y);
-	setSize(sf::Vector2f(10, len));
+	setSize(sf::Vector2f(5, len));
 
 	// Compute the angle formed by the right triangle between the points, in degrees, correct for 0º straight down
 	const float theta = std::atan2f(b.y - a.y, b.x - a.x) * 180 / PI - 90;
@@ -22,9 +22,13 @@ void Spring::normalize(sf::Vector2<T>& vec)
 	vec.y /= mag;
 }
 
-void Spring::update(const float gravity)
+void Spring::update()
 {
-	sf::Vector2f distance(a.getPosition().x - b.getPosition().x, a.getPosition().y - b.getPosition().y);
+	float del_x = a->getPosition().x - b->getPosition().x;
+	float del_y = a->getPosition().y - b->getPosition().y;
+
+	sf::Vector2f distance(del_x, del_y);
+	spring_len = std::hypotf(del_x, del_y);
 
 	normalize(distance);
 
@@ -33,20 +37,19 @@ void Spring::update(const float gravity)
 	sf::Vector2f force;
 	force.x = distance.x * force_mag;
 	force.y = distance.y * force_mag;
-	force.y += gravity;
-	force.y -= gravity;
-
 
 	// F = ma, assuming unit mass F = a
-	a.vel += force;
-	b.vel += force * -1.f;
+	a->vel += force;
+	b->vel += force * -1.f;
 
-
-	setEndpoints(a.getPosition(), b.getPosition());
+	setEndpoints(a->getPosition(), b->getPosition());
 }
 
-void Ball::update()
+void Ball::update(const float gravity)
 {
+	// Gravity
+	vel.y += gravity;
+
 	// Air resistance, dampening
 	vel.x *= 0.999;
 	vel.y *= 0.999;

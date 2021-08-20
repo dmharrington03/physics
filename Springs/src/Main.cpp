@@ -62,7 +62,7 @@ int main()
 		}
 
 
-		window.clear(sf::Color(122, 80, 104));
+		window.clear(sf::Color(153, 99, 130));
 
 
 		for (int i = 0; i < nPoints - 1; i++)

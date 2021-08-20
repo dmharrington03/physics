@@ -21,7 +21,7 @@ public:
 		setOrigin(20, 20);
 	}
 
-	void update(const float gravity=0.0005);
+	void update(const float gravity=0.0);
 };
 
 class Spring : public sf::RectangleShape

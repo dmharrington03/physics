@@ -3,7 +3,12 @@ title: Kinematics - 2D
 date: "2021-06-25T22:40:32.169Z"
 description: Two-dimensional kinematics simulation program
 ---
-### Kinematics - 2D
+
+> Physics is really nothing more than a search for ultimate simplicity, but so far all we have is a kind of elegant messiness.
+> 
+> <footer>Bill Bryson</footer>
+
+---
 
 The key to generalizing kinematic relationships to higher dimensions is to break each dimension of a problem into multiple one-dimensional problems. Since each dimension can be thought of as having independent position, velocity, and acceleration, complex kinematics problems can be greatly simplified.
 

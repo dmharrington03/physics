@@ -1,24 +1,15 @@
 class Point
 {
-private:
-
-	bool is_locked;
-
 public:
 
 	sf::CircleShape shape;
 
-	Point(sf::Vector2f initial_position, float radius, bool lock=false, sf::Color color=sf::Color(100, 100, 100))
+	Point(sf::Vector2f initial_position, float radius, sf::Color color=sf::Color(100, 100, 100))
 	{
 		shape.setRadius(radius);
 		shape.setOrigin(radius, radius);
 		shape.setPosition(initial_position);
-
-		is_locked = lock;
-		if (is_locked)
-			shape.setFillColor(sf::Color(160, 118, 133));
-		else
-			shape.setFillColor(color);
+		shape.setFillColor(color);
 	}
 
 	Point()
@@ -54,16 +45,22 @@ public:
 		shape.setFillColor(sf::Color(50, 50, 50));
 	}
 
+	Segment()
+	{
+		pa = nullptr;
+		pb = nullptr;
+	}
+
 	void setEndpoints();
 };
 
-bool inRange(Segment list[], int len, Point& p0, Point& pf);
+bool inRange(std::vector<Segment> &segList, int len, Point& p0, Point& pf);
 
 
 template <typename T>
 void normalize(sf::Vector2<T>& vec);
 
-void fabrik(Segment segList[], int len, Point* pBegin, Point* pt);
+void fabrik(std::vector<Segment> &segList, int len, Point* pBegin, Point* pt);
 
-void backPass(Segment segList[], int len, Point pEnd);
-void forwardPass(Segment segList[], int len, Point pBegin);
+void backPass(std::vector<Segment> &segList, int len, Point pEnd);
+void forwardPass(std::vector<Segment> &segList, int len, Point pBegin);

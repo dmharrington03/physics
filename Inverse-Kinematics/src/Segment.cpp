@@ -13,6 +13,14 @@ void Segment::setEndpoints(sf::Vector2f a, sf::Vector2f b)
 	shape.setRotation(theta);
 }
 
+template <typename T>
+void normalize(sf::Vector2<T>& vec)
+{
+	T mag = static_cast<T>(std::hypotf(vec.x, vec.y));
+	vec.x /= mag;
+	vec.y /= mag;
+}
+
 bool inRange(Segment (&list)[], int len, Point& p0, Point& pf)
 {
 	// Add up the lengths of each segment and compare that with the distance to goal point
@@ -25,4 +33,20 @@ bool inRange(Segment (&list)[], int len, Point& p0, Point& pf)
 
 	// Compare to actual distance (Pythagorean theorem)
 	return sum_len > std::hypotf(p0.shape.getPosition().x - pf.shape.getPosition().x, p0.shape.getPosition().y - pf.shape.getPosition().y);
+}
+
+void backPass(Segment (&segList)[], int len, Point& pt)
+{
+	segList[len - 1].pb->shape.setPosition(pt.shape.getPosition());
+	// Get vector between pb and pa, normalize
+	// Mult by segment length
+	// Move pa there, the setEndpoints of segment
+
+	sf::Vector2f distanceAB(segList[len - 1].pb->shape.getPosition() - segList[len - 1].pa->shape.getPosition());
+	normalize(distanceAB);
+
+	// Multiply by original length of segment
+	distanceAB = segList[len - 1].shape.getSize().x * distanceAB;
+	segList[len - 1].pa->shape.setPosition(pt.shape.getPosition() - distanceAB);
+
 }

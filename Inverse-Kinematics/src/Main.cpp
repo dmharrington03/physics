@@ -18,22 +18,25 @@ int main()
 	gridline.setOrigin(width / 2, 1);
 	gridline.setPosition(0, width / 2);
 
+
+	int N_SEG = 4;
+	int N_POINTS = 5;
+	const int spacing = 250;
+	std::vector<Point> points;
+	std::vector<Segment> segments;
+
 	// Keep track of origin point
-	Point pBegin(sf::Vector2f(width / 2 - 250, width / 2), 25);
+	Point pBegin(sf::Vector2f(width / 2 - spacing * 2, width / 2), 25);
 
-	Point p0(sf::Vector2f(width / 2 - 250, width / 2), 25, true);
-	Point p1(sf::Vector2f(width / 2, width / 2), 25);
-	Point p2(sf::Vector2f(width / 2 + 250, width / 2), 25);
-	Point p3(sf::Vector2f(width / 2 + 500, width / 2), 25);
+	for (int i = 0; i < N_POINTS; i++)
+		points.push_back(Point(sf::Vector2f(width / 2 + spacing * (i - 2), width / 2), 25));
 
-	Point pt(sf::Vector2f(width / 2 + 203, width / 2 - 242), 25, false, sf::Color(155, 180, 126));
+	points[0].shape.setFillColor(sf::Color(160, 118, 133));
 
-	Segment seg0(p0, p1);
-	Segment seg1(p1, p2);
-	Segment seg2(p2, p3);
+	Point pt(sf::Vector2f(width / 2 + 203, width / 2 - 242), 25, sf::Color(155, 180, 126));
 
-	Segment seg_list[] = {seg0, seg1, seg2};
-	const int N_SEG = 3;
+	for (int i = 0; i < N_SEG; i++)
+		segments.push_back(Segment(points[i], points[i + 1]));
 
 	sf::Event event;
 	while (window.isOpen())
@@ -51,31 +54,28 @@ int main()
 		}
 
 		// TODO
-		// * Populate array and points dynamically
 		// * Space adds a new segment + point pair
 
-		pt.shape.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
-
-		if (inRange(seg_list, N_SEG, pBegin, pt))
+		if (inRange(segments, N_SEG, pBegin, pt))
 		{
-			fabrik(seg_list, N_SEG, &pBegin, &pt);
+			fabrik(segments, N_SEG, &pBegin, &pt);
 		}
 		else
 		{
 			// Solve for the farthest possible point in direction of pt
 			float segmentSum = 0;
 			for (int i = 0; i < N_SEG; i++)
-				segmentSum += seg_list[i].shape.getSize().x;
+				segmentSum += segments[i].shape.getSize().x;
 
 			sf::Vector2f totalDisplacement(pt.shape.getPosition() - pBegin.shape.getPosition());
 			normalize(totalDisplacement);
 			totalDisplacement = segmentSum * totalDisplacement;
 			Point pInDirection(pBegin.shape.getPosition() + totalDisplacement, 25);
 
-			fabrik(seg_list, N_SEG, &pBegin, &pInDirection);
+			fabrik(segments, N_SEG, &pBegin, &pInDirection);
 		}
 
-
+		pt.shape.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
 
 
 		window.clear(sf::Color(127, 158, 176));
@@ -96,12 +96,11 @@ int main()
 		}
 
 		for (int i = 0; i < N_SEG; i++)
-			window.draw(seg_list[i].shape);
+			window.draw(segments[i].shape);
 
-		window.draw(p0.shape);
-		window.draw(p1.shape);
-		window.draw(p2.shape);
-		window.draw(p3.shape);
+		for (int i = 0; i < N_POINTS; i++)
+			window.draw(points[i].shape);
+
 		window.draw(pt.shape);
 		window.display();
 	}

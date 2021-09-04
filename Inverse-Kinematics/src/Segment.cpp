@@ -24,14 +24,14 @@ void normalize(sf::Vector2<T>& vec)
 	vec.y /= mag;
 }
 
-bool inRange(Segment list[], int len, Point& p0, Point& pf)
+bool inRange(std::vector<Segment> &segList, int len, Point& p0, Point& pf)
 {
 	// Add up the lengths of each segment and compare that with the distance to goal point
 	int sum_len = 0;
 	for (int i = 0; i < len; i++)
 	{
 		// X dimension is long, Y is short
-		sum_len += list[i].shape.getSize().x;
+		sum_len += segList[i].shape.getSize().x;
 	}
 
 	// Compare to actual distance (Pythagorean theorem)
@@ -39,7 +39,7 @@ bool inRange(Segment list[], int len, Point& p0, Point& pf)
 
 }
 
-void backPass(Segment segList[], int listLen, Point pEnd)
+void backPass(std::vector<Segment> &segList, int listLen, Point pEnd)
 {
 	Point *pt = &pEnd;
 	// Loop backwards through the list
@@ -67,7 +67,7 @@ void backPass(Segment segList[], int listLen, Point pEnd)
 }
 
 
-void forwardPass(Segment segList[], int len, Point pBegin)
+void forwardPass(std::vector<Segment> &segList, int len, Point pBegin)
 {
 	Point *pt = &pBegin;
 	// Loop fowards through the list
@@ -94,7 +94,7 @@ void forwardPass(Segment segList[], int len, Point pBegin)
 	}
 }
 
-void fabrik(Segment segList[], int len, Point* pBegin, Point* pt)
+void fabrik(std::vector<Segment> &segList, int len, Point* pBegin, Point* pt)
 {
 	float deltaX = segList[len - 1].pb->shape.getPosition().x - pt->shape.getPosition().x;
 	float deltaY = segList[len - 1].pb->shape.getPosition().y - pt->shape.getPosition().y;

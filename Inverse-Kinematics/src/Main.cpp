@@ -5,6 +5,7 @@ int main()
 {
 	const int width = 1600;
 	sf::RenderWindow window(sf::VideoMode(width, width), "Inverse Kinematics", sf::Style::Close);
+	window.setMouseCursorVisible(false);
 
 	sf::RectangleShape axis(sf::Vector2f(width, 2));
 	axis.setFillColor(sf::Color(50, 50, 50));

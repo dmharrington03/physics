@@ -50,18 +50,20 @@ public:
 		pa = &a;
 		pb = &b;
 		shape.setOrigin(0, width / 2);
-		setEndpoints(a.shape.getPosition(), b.shape.getPosition());
+		setEndpoints();
 		shape.setFillColor(sf::Color(50, 50, 50));
 	}
 
-	void setEndpoints(sf::Vector2f a, sf::Vector2f b);
+	void setEndpoints();
 };
 
-bool inRange(Segment (&list)[], int len, Point& p0, Point& pf);
+bool inRange(Segment list[], int len, Point& p0, Point& pf);
 
 
 template <typename T>
 void normalize(sf::Vector2<T>& vec);
 
-void backPass(Segment (&segList)[], int len);
-void forwardPass(Segment (&segList)[], int len);
+void fabrik(Segment segList[], int len, Point* pBegin, Point* pt);
+
+void backPass(Segment segList[], int len, Point pEnd);
+void forwardPass(Segment segList[], int len, Point pBegin);

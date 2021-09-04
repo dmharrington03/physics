@@ -21,6 +21,9 @@ int main()
 	Point p1(sf::Vector2f(width / 2, width / 2), 25);
 	Point p2(sf::Vector2f(width / 2 + 250, width / 2), 25);
 	Point p3(sf::Vector2f(width / 2 + 500, width / 2), 25);
+
+	Point pt(sf::Vector2f(width / 2 + 400, width / 2 - 200), 25, false, sf::Color(155, 180, 126));
+
 	Segment seg0(p0, p1);
 	Segment seg1(p1, p2);
 	Segment seg2(p2, p3);
@@ -75,6 +78,7 @@ int main()
 		window.draw(p1.shape);
 		window.draw(p2.shape);
 		window.draw(p3.shape);
+		window.draw(pt.shape);
 		window.display();
 	}
 

@@ -73,4 +73,6 @@ $$
 s_f \approx s_i + v\Delta t
 $$
 
-As an extension, I created classes for both the spring and the ball and made an array for each. The spring takes in two balls, one at each end, allowing a whole chain of them to be put together! 
+As an extension, I created classes for both the spring and the ball and made an array for each. The spring takes in two balls, one at each end, allowing a whole chain of them to be put together!
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZeEXictaAso" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

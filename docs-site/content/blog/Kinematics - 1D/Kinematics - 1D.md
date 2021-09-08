@@ -72,3 +72,5 @@ Note that in the actual program, the `a * dt` and `v * dt` terms are calculated 
 For more information on this subject, Gaffer on Games provides helpful articles on
 [numerical integration](https://gafferongames.com/post/integration_basics/) and
 [timesteps.](https://gafferongames.com/post/fix_your_timestep/)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Bq_ErQXDXP4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

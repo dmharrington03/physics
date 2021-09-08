@@ -81,3 +81,5 @@ Calculating this for each component and setting the new position every frame wil
 ![fig3d](fig-3.png)
 
 I then instantiated another planet object to give us an Earth and Mars. Right now they don't interact gravitationally with each other, but that's a project for a different time!
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/41upORdKy8U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

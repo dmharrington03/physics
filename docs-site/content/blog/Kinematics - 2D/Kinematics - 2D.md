@@ -97,3 +97,5 @@ To retain the same timestep but still have the points on our trajectory curve sp
 Adding some styles and a gradient gives the following, and that's the simulation complete.
 
 ![Final completed project with the trajectory curve in purple dots](header.png)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7ZdxlxMjNlo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

@@ -11,7 +11,7 @@ export default function ArticleCard({title, to, imgURL, tag, date}) {
             <span className="uk-label">{ tag }</span>
           </div>
         </div>
-        <div className="uk-card-body uk-margin-remove-top uk-text-left">
+        <div className="uk-card-body uk-margin-remove-top uk-text-left uk-flex uk-flex-middle">
           <div className="uk-grid-small uk-flex-middle" data-uk-grid="true">
             <div className="uk-width-expand">
               <h3 className="uk-card-title uk-margin-remove">

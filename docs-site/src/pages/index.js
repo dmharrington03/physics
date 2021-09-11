@@ -26,7 +26,8 @@ const BlogIndex = ({ data, location }) => {
       <Seo title="Computational Physics" />
       <TitleBar />
       <div className="uk-container uk-margin-top">
-        <div className="uk-grid uk-grid-match" data-uk-grid>
+        <div className="uk-grid uk-grid-match" data-uk-grid 
+          data-uk-height-match="target: > div > div > a > div.uk-card-body">
           {posts.map((post) => {
             const title = post.frontmatter.title || post.fields.slug;
             const imgMatch = images.find((node) => post.frontmatter.title === node.name);

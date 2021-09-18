@@ -45,7 +45,9 @@ int main()
 	side.setFillColor(sf::Color::White);
 	side.setOrigin(0, 1);
 
-	double angle = 0.001;
+	sf::Vector3f angle(0, 0, 0);
+	sf::Vector3f prev_angle(0, 0, 0);
+
 	sf::Event event;
 	while (window.isOpen())
 	{
@@ -61,15 +63,23 @@ int main()
 			}
 		}
 
+		// angle = std::atan2(sf::Mouse::getPosition(window).y, sf::Mouse::getPosition(window).x);
+		angle.x = map((double)sf::Mouse::getPosition(window).y, 0.0, (double)width, -1.5, 1.5);
+		angle.y = map((double)sf::Mouse::getPosition(window).x, 0.0, (double)width, -1.5, 1.5);
+		angle.z = map((double)std::hypot(angle.x, angle.y), 0.0, 2263.0, -1.0, 1.0);
 
 		for (int i = 0; i < 8; i++)
 		{
-			rotate3x(coords[i], angle * 1.1);
-			rotate3z(coords[i], angle * 0.8);
-			rotate3y(coords[i], angle * 1.2);
-			points[i].setPosition(center.x + coords[i].x, center.y - coords[i].y);
+			if (angle != prev_angle)
+			{
+				rotate3x(coords[i], angle.x - prev_angle.x);
+				rotate3y(coords[i], angle.y - prev_angle.y);
+				rotate3z(coords[i], angle.z - prev_angle.z);
+				points[i].setPosition(center.x + coords[i].x, center.y - coords[i].y);
+			}
 		}
 
+		prev_angle = angle;
 
 
 		window.clear(sf::Color(15, 15, 15));

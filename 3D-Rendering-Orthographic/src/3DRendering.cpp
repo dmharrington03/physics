@@ -9,7 +9,6 @@ sf::Vector2f rotatePoint(const sf::Vector2f &point, const float &theta)
 	return result;
 }
 
-
 void rotate3z(sf::Vector3f &point, const float& theta)
 {
 	sf::Vector3f result;

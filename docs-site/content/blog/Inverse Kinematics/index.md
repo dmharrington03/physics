@@ -10,7 +10,7 @@ description: very epic
 
 ---
 
-<i>The original paper on the technique described here was written by Andreas Aristidou and Joan Lasenby and can be accessed [here](http://andreasaristidou.com/publications/papers/FABRIK.pdf).</i>
+<i>The original paper on the technique described here was written by Andreas Aristidou and Joan Lasenby and can be accessed <a href="http://andreasaristidou.com/publications/papers/FABRIK.pdf" target="_blank">here</a>.</i>
 
 ---
 ### Background
@@ -23,7 +23,7 @@ Implementing inverse kinematics is not as easy as forward kinematics. Some exact
 
 ### Algorithm
 
-For an in-depth explanation of FABRIK and how it works, I recommend [this video](https://www.youtube.com/watch?v=UNoX65PRehA) by EgoMoose.
+For an in-depth explanation of FABRIK and how it works, I recommend <a href="https://www.youtube.com/watch?v=UNoX65PRehA" target="_blank">this video</a> by EgoMoose.
 
 FABRIK simplifies the problem of IK by dividing it into multiple smaller problems of points on a line. Each line segment has two points on either end, $P_A$ and $P_B$. It iteratively goes through each point, comparing it to a target point, and updates the position of the previous point to be in the direction of the target point while keeping the same segment length. The first cycles "forwards", reaching out toward the green point from the red point. It then repeats "backwards", reaching from the green point to the red. This is repeated until the difference between the target point and the end point is smaller than some set value.
 

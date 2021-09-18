@@ -39,7 +39,7 @@ bool inRange(std::vector<Segment> &segList, int len, Point& p0, Point& pf)
 
 }
 
-void backPass(std::vector<Segment> &segList, int listLen, Point pEnd)
+void forwardPass(std::vector<Segment> &segList, int listLen, Point pEnd)
 {
 	Point *pt = &pEnd;
 	// Loop backwards through the list
@@ -67,7 +67,7 @@ void backPass(std::vector<Segment> &segList, int listLen, Point pEnd)
 }
 
 
-void forwardPass(std::vector<Segment> &segList, int len, Point pBegin)
+void backPass(std::vector<Segment> &segList, int len, Point pBegin)
 {
 	Point *pt = &pBegin;
 	// Loop fowards through the list
@@ -103,7 +103,7 @@ void fabrik(std::vector<Segment> &segList, int len, Point* pBegin, Point* pt)
 	{
 		deltaX = segList[len - 1].pb->shape.getPosition().x - pt->shape.getPosition().x;
 		deltaY = segList[len - 1].pb->shape.getPosition().y - pt->shape.getPosition().y;
-		backPass(segList, len, *pt);
-		forwardPass(segList, len, *pBegin);
+		forwardPass(segList, len, *pt);
+		backPass(segList, len, *pBegin);
 	}
 }

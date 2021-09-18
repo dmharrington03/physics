@@ -62,5 +62,5 @@ void normalize(sf::Vector2<T>& vec);
 
 void fabrik(std::vector<Segment> &segList, int len, Point* pBegin, Point* pt);
 
-void backPass(std::vector<Segment> &segList, int len, Point pEnd);
-void forwardPass(std::vector<Segment> &segList, int len, Point pBegin);
+void forwardPass(std::vector<Segment> &segList, int len, Point pEnd);
+void backPass(std::vector<Segment> &segList, int len, Point pBegin);

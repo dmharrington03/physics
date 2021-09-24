@@ -1,5 +1,6 @@
 #include "Platform/Platform.hpp"
 #include "3DUtility.hpp"
+#define PI 3.14159
 
 int main()
 {
@@ -17,7 +18,7 @@ int main()
 	gridline.setOrigin(width / 2, 1);
 	gridline.setPosition(0, width / 2);
 
-	const int radius = 25;
+	const int radius = 20;
 	float s = 150;
 	const sf::Vector2f center(width / 2, width / 2);
 
@@ -29,6 +30,7 @@ int main()
 	};
 
 	sf::Vector3f coords[8];
+	sf::Vector3f projected[8];
 
 	sf::CircleShape points[8];
 	for (int i = 0; i < 8; i++)
@@ -36,6 +38,8 @@ int main()
 		coords[i].x = initial_coords[i][0];
 		coords[i].y = initial_coords[i][1];
 		coords[i].z = initial_coords[i][2];
+		rotate3y(coords[i], PI / 4);
+		rotate3x(coords[i], PI / 4 );
 		points[i].setFillColor(sf::Color::White);
 		points[i].setRadius(radius);
 		points[i].setOrigin(radius, radius);
@@ -47,6 +51,9 @@ int main()
 
 	sf::Vector3f angle(0, 0, 0);
 	sf::Vector3f prev_angle(0, 0, 0);
+
+
+
 
 	sf::Event event;
 	while (window.isOpen())
@@ -64,19 +71,20 @@ int main()
 		}
 
 		// angle = std::atan2(sf::Mouse::getPosition(window).y, sf::Mouse::getPosition(window).x);
-		angle.x = map((double)sf::Mouse::getPosition(window).y, 0.0, (double)width, -1.5, 1.5);
-		angle.y = map((double)sf::Mouse::getPosition(window).x, 0.0, (double)width, -1.5, 1.5);
-		angle.z = map((double)std::hypot(angle.x, angle.y), 0.0, 2263.0, -1.0, 1.0);
+		// angle.x = map((double)sf::Mouse::getPosition(window).y, 0.0, (double)width, -1.5, 1.5);
+		// angle.y = map((double)sf::Mouse::getPosition(window).x, 0.0, (double)width, -1.5, 1.5);
+		// angle.z = map((double)std::hypot(angle.x, angle.y), 0.0, 2263.0, -1.0, 1.0);
 
 		for (int i = 0; i < 8; i++)
 		{
-			if (angle != prev_angle)
-			{
-				rotate3x(coords[i], angle.x - prev_angle.x);
-				rotate3y(coords[i], angle.y - prev_angle.y);
-				rotate3z(coords[i], angle.z - prev_angle.z);
-				points[i].setPosition(center.x + coords[i].x, center.y - coords[i].y);
-			}
+			// rotate3x(coords[i], 0.01);
+			// rotate3y(coords[i], 0.001);
+			// rotate3z(coords[i], angle.z - prev_angle.z);
+			points[i].setPosition(center.x + coords[i].x, center.y - coords[i].y);
+			//TODO set points
+			// projected[i] = projectPoint(coords[i]);
+			// points[i].setPosition(center.x + projected[i].x * 300, center.y - projected[i].y * 300);
+
 		}
 
 		prev_angle = angle;

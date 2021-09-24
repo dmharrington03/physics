@@ -1,12 +1,12 @@
 #include "3DUtility.hpp"
 
-sf::Vector2f rotatePoint(const sf::Vector2f &point, const float &theta)
+sf::Vector3f projectPoint(sf::Vector3f& point)
 {
-	// Compute using 2D rotation matrix for angle theta in radius
-	sf::Vector2f result;
-	result.x = point.x * std::cosf(theta) - point.y * std::sinf(theta);
-	result.y = point.x * std::sinf(theta) + point.y * std::cosf(theta);
-	return result;
+	sf::Vector3f res;
+	res.x = point.x / -point.z;
+	res.y = point.y / -point.z;
+	res.z = 1;
+	return res;
 }
 
 void rotate3z(sf::Vector3f &point, const float& theta)

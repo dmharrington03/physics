@@ -19,7 +19,7 @@ int main()
 	gridline.setPosition(0, width / 2);
 
 	const int radius = 20;
-	float s = 150;
+	float s = 0.5;
 	const sf::Vector2f center(width / 2, width / 2);
 
 	// Cube with side length s
@@ -38,8 +38,6 @@ int main()
 		coords[i].x = initial_coords[i][0];
 		coords[i].y = initial_coords[i][1];
 		coords[i].z = initial_coords[i][2];
-		rotate3y(coords[i], PI / 4);
-		rotate3x(coords[i], PI / 4 );
 		points[i].setFillColor(sf::Color::White);
 		points[i].setRadius(radius);
 		points[i].setOrigin(radius, radius);
@@ -52,8 +50,7 @@ int main()
 	sf::Vector3f angle(0, 0, 0);
 	sf::Vector3f prev_angle(0, 0, 0);
 
-
-
+	const int d = 2;
 
 	sf::Event event;
 	while (window.isOpen())
@@ -70,25 +67,18 @@ int main()
 			}
 		}
 
-		// angle = std::atan2(sf::Mouse::getPosition(window).y, sf::Mouse::getPosition(window).x);
-		// angle.x = map((double)sf::Mouse::getPosition(window).y, 0.0, (double)width, -1.5, 1.5);
-		// angle.y = map((double)sf::Mouse::getPosition(window).x, 0.0, (double)width, -1.5, 1.5);
-		// angle.z = map((double)std::hypot(angle.x, angle.y), 0.0, 2263.0, -1.0, 1.0);
-
 		for (int i = 0; i < 8; i++)
 		{
-			// rotate3x(coords[i], 0.01);
-			// rotate3y(coords[i], 0.001);
-			// rotate3z(coords[i], angle.z - prev_angle.z);
-			points[i].setPosition(center.x + coords[i].x, center.y - coords[i].y);
-			//TODO set points
-			// projected[i] = projectPoint(coords[i]);
-			// points[i].setPosition(center.x + projected[i].x * 300, center.y - projected[i].y * 300);
-
+			rotate3x(coords[i], 0.0005);
+			rotate3y(coords[i], 0.0003);
+			rotate3z(coords[i], 0.0007);
+			sf::Vector2f cub(coords[i].x / (d - coords[i].z), coords[i].y / (d - coords[i].z));
+			cub *= 600.f;
+			sf::Vector2f newpos(center.x + cub.x, center.y - cub.y);
+			points[i].setPosition(newpos);
+			points[i].setRadius(radius + 0.2 * coords[i].z);
+			points[i].setOrigin(points[i].getRadius(), points[i].getRadius());
 		}
-
-		prev_angle = angle;
-
 
 		window.clear(sf::Color(15, 15, 15));
 
@@ -106,11 +96,6 @@ int main()
 			gridline.setPosition(i * (width / lines), width / 2);
 			window.draw(gridline);
 		}
-
-		setEndpoints(side, points[0].getPosition(), points[1].getPosition());
-		setEndpoints(side, points[1].getPosition(), points[2].getPosition());
-		setEndpoints(side, points[2].getPosition(), points[3].getPosition());
-		setEndpoints(side, points[3].getPosition(), points[0].getPosition());
 
 		for (int i = 0; i < 4; i++)
 		{

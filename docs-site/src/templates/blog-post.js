@@ -33,7 +33,8 @@ const BlogPostTemplate = ({ data }) => {
             <h1 itemProp="headline">{post.frontmatter.title}</h1>
             <p>{post.frontmatter.date}</p>
           </header>
-          <a href={`https://github.com/dmharrington03/physics/tree/master/${post.frontmatter.title.replace(/\s+/g, '')}`}
+          {/* Using frontmatter description field as Github page slug */}
+          <a href={`https://github.com/dmharrington03/physics/tree/master/${post.frontmatter.description}`}
             id="coolButton" 
             className="uk-button uk-button-default uk-margin-bottom"
             target="_blank"

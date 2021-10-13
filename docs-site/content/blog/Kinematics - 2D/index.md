@@ -1,7 +1,7 @@
 ---
 title: Kinematics - 2D
 date: "2021-06-25T22:40:32.169Z"
-description: Two-dimensional kinematics simulation program
+description: Kinematics-2D
 ---
 
 > Physics is really nothing more than a search for ultimate simplicity, but so far all we have is a kind of elegant messiness.

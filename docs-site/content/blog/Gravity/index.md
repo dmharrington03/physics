@@ -1,7 +1,7 @@
 ---
 title: Gravity
 date: 2021-07-10T09:28:36.992Z
-description: very epic
+description: Gravity
 ---
 
 > Gravity is a contributing factor in nearly 73 percent of all accidents involving falling objects.

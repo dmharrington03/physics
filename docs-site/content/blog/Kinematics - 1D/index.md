@@ -1,7 +1,7 @@
 ---
 title: Kinematics - 1D
 date: 2021-06-12T09:28:36.992Z
-description: very epic
+description: Kinematics-1D
 ---
 
 > Nothing happens until something moves

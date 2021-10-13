@@ -4,9 +4,9 @@ date: 2021-10-08T04:20:36.992Z
 description: 3D-Rendering-Perspective
 ---
 
-> I won't be impressed with science until I can download a waffle.
+> Never trust a computer you can't throw out a window.
 >
-> <footer>Sean Gabay</footer>
+> <footer>Steve Wozniak</footer>
 
 ---
 

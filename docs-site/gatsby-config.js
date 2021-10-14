@@ -6,9 +6,9 @@ module.exports = {
       summary: `Student, programmer, wannabe physicist`,
     },
     description: `A blog showcasing physics concepts made in code`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    siteUrl: `https://comp-phys.netlify.app/`,
     social: {
-      twitter: `kylemathews`,
+      // Put socials here
     },
   },
   plugins: [

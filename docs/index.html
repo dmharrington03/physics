@@ -17,7 +17,10 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="index.css">
 
-    <!-- <script src="App.js"></script> -->
+    <script defer>
+        // Auto redirect to new website
+        window.location.href = 'https://comp-phys.netlify.app/';
+    </script>
     
     <title>Physics</title>
 </head>
@@ -31,12 +34,13 @@
         </nav>
     </div>
     
-    <div id="root"></div>
+    <div id="root">
+        <h1 class="uk-h1 uk-text-center uk-margin-large uk-padding-large">
+            <a class="uk-link-heading" href="https://comp-phys.netlify.app/">
+                Please visit the new site here.
+            </a>
+        </h1>
+    </div>
 
-    <!--TODO fix routing, change to CLI environment -->
-    <footer class="uk-height-small uk-flex uk-flex-center uk-background-secondary">
-    </footer>
-    
-    
 </body>
 </html>

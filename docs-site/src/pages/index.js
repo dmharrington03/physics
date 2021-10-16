@@ -34,7 +34,7 @@ const BlogIndex = ({ data, location }) => {
             return (
               <div className="uk-width-1-3@m uk-width-1-2@s">
                 <ArticleCard title={title} 
-                  to={post.fields.slug} 
+                  to={post.fields.slug.replace(/\s+/g, '')} 
                   imgURL={ imgMatch ? imgMatch.publicURL : "" }
                   tag={posts.indexOf(post) === 0 ? "New!" : ""}
                   date={post.frontmatter.date}

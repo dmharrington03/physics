@@ -53,7 +53,7 @@ const BlogPostTemplate = ({ data }) => {
           <ul className="post-nav">
             <li>
               {previous && (
-                <a href={previous.fields.slug} rel="prev"
+                <a href={previous.fields.slug.replace(/\s+/g, '')} rel="prev"
                   className="uk-button uk-button-default uk-margin=bottom"
                   id="coolButton">
                   ← {previous.frontmatter.title}
@@ -62,7 +62,7 @@ const BlogPostTemplate = ({ data }) => {
             </li>
             <li>
               {next && (
-                <a href={next.fields.slug} rel="next"
+                <a href={next.fields.slug.replace(/\s+/g, '')} rel="next"
                   className="uk-button uk-button-default uk-margin=bottom"
                   id="coolButton">
                   {next.frontmatter.title} →

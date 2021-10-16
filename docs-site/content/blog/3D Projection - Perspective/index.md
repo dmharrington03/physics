@@ -16,7 +16,7 @@ The perspective projection algorithm is similar to orthographic projection. A po
 
 The value we want to find is $P'.y$, the height of the projected point above the horizontal. $P'.z$ is a set constant since the canvas is always the same distance away from the camera (for this project, at least).
 
-![Side Diagram of perspective projection](Fig-1.png)
+![Side Diagram of perspective projection](fig-1.png)
 *Fig. 1 – Side Diagram of Perspective Projection*
 
 By the definition of similar triangles, the sides of the two triangles form equal ratios, giving

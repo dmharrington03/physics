@@ -50,7 +50,7 @@ int main()
 	sf::Vector3f angle(0, 0, 0);
 	sf::Vector3f prev_angle(0, 0, 0);
 
-	const int d = 2;
+	float d = 2;
 
 	sf::Event event;
 	while (window.isOpen())
@@ -61,6 +61,12 @@ int main()
 			{
 				case sf::Event::Closed:
 					window.close();
+
+				case sf::Event::KeyPressed:
+					if (event.key.code == sf::Keyboard::Up)
+						d += 0.5;
+					else
+						d -= 0.5;
 
 				default:
 					continue;
@@ -76,7 +82,7 @@ int main()
 			cub *= 600.f;
 			sf::Vector2f newpos(center.x + cub.x, center.y - cub.y);
 			points[i].setPosition(newpos);
-			points[i].setRadius(radius + 0.2 * coords[i].z);
+			points[i].setRadius((radius / 3) * (5 - d));
 			points[i].setOrigin(points[i].getRadius(), points[i].getRadius());
 		}
 

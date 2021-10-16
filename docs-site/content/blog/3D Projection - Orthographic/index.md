@@ -46,7 +46,7 @@ $$
 \begin{bmatrix}
 1 & 0 & 0 & 0 \\
 0 & 1 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 \\
 0 & 0 & 0 & 1 \\
 \end{bmatrix}
 \begin{bmatrix}
@@ -59,10 +59,10 @@ w=1 \\
 \begin{bmatrix}
 x \\
 y \\
-0 \\
+w \\
 w \\
 \end{bmatrix}
-\rightarrow (x, y)
+\rightarrow (x, y, 1)
 $$
 
 This is good enough for a simple application like rendering a cube, but for more complicated scenes and more functionality such as clipping and transformations, this matrix can be altered. The underlying principle remains the same, that a point in scene space is projected directly onto the image plane and shown on the canvas.

@@ -10,25 +10,68 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 const About = ({ data, location }) => {
 
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
+  const portraitURL = data.allFile.edges[0].node.publicURL;
+  const codebgURL = data.allFile.edges[1].node.publicURL;
+
   UIkit.use(Icons);
+
+  const bgPortraitStyle = {
+    backgroundImage: `url(${portraitURL})`
+  }
+
+  const bgPortraitStyleSmall = {
+    backgroundImage: `url(${portraitURL})`,
+    backgroundColor: "#333333"
+  }
+
+  const bgMainStyle = {
+    backgroundImage: `url(${codebgURL})`,
+    backgroundColor: "#222222"
+  }
+
 
   return (
     <div>
       <Seo title="Computational Physics" />
       <TitleBar />
-      <h1>Hello world</h1>
-      <div className="uk-margin">
-        <div className="uk-container">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna et pharetra pharetra massa massa ultricies mi. Mollis aliquam ut porttitor leo a diam. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Leo integer malesuada nunc vel risus commodo viverra maecenas. Pulvinar sapien et ligula ullamcorper malesuada proin. Et magnis dis parturient montes nascetur. Vel pretium lectus quam id. Posuere sollicitudin aliquam ultrices sagittis orci. Nisi scelerisque eu ultrices vitae auctor eu. Et malesuada fames ac turpis egestas integer eget. Mauris a diam maecenas sed enim ut sem viverra aliquet. Bibendum at varius vel pharetra vel. Enim nulla aliquet porttitor lacus luctus. Consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Vestibulum sed arcu non odio euismod lacinia at.
-
-Dui accumsan sit amet nulla. Iaculis eu non diam phasellus vestibulum. Dui sapien eget mi proin sed libero enim. Mauris cursus mattis molestie a iaculis at. Senectus et netus et malesuada fames. Est velit egestas dui id. Pretium viverra suspendisse potenti nullam ac tortor. Non odio euismod lacinia at quis risus sed vulputate odio. Non nisi est sit amet facilisis magna. Elementum sagittis vitae et leo duis ut. Sem integer vitae justo eget magna fermentum iaculis eu. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum. Aliquet bibendum enim facilisis gravida neque convallis. Libero justo laoreet sit amet cursus sit amet.
-
-Et malesuada fames ac turpis egestas integer eget aliquet. Enim diam vulputate ut pharetra sit amet aliquam id diam. Sapien et ligula ullamcorper malesuada proin libero nunc consequat. Elit scelerisque mauris pellentesque pulvinar. Faucibus in ornare quam viverra orci sagittis eu volutpat. Egestas sed sed risus pretium quam vulputate dignissim. Scelerisque fermentum dui faucibus in ornare quam. Nisl rhoncus mattis rhoncus urna. Praesent semper feugiat nibh sed. Gravida cum sociis natoque penatibus et magnis dis parturient montes. Facilisi morbi tempus iaculis urna. Tristique senectus et netus et malesuada fames ac. Tortor condimentum lacinia quis vel eros. Nisl pretium fusce id velit ut tortor pretium viverra. Posuere morbi leo urna molestie at elementum eu facilisis sed. Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
-
-Cras pulvinar mattis nunc sed blandit libero volutpat sed. In hac habitasse platea dictumst quisque sagittis purus. Est sit amet facilisis magna etiam tempor orci. In iaculis nunc sed augue lacus. Et magnis dis parturient montes. A diam sollicitudin tempor id. Hendrerit dolor magna eget est lorem ipsum dolor sit. Diam ut venenatis tellus in metus vulputate eu scelerisque felis. Lacus vel facilisis volutpat est velit egestas. Amet mauris commodo quis imperdiet massa tincidunt. Parturient montes nascetur ridiculus mus mauris vitae. Justo nec ultrices dui sapien eget mi proin sed libero. Tincidunt eget nullam non nisi est sit amet facilisis magna.
-
-Vitae auctor eu augue ut lectus. Mattis nunc sed blandit libero volutpat. In mollis nunc sed id semper. Pretium lectus quam id leo in vitae turpis massa. Nibh mauris cursus mattis molestie a iaculis at erat pellentesque. Non enim praesent elementum facilisis leo vel fringilla. Nisl purus in mollis nunc sed. Egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Integer enim neque volutpat ac tincidunt vitae. Aliquet nibh praesent tristique magna. A pellentesque sit amet porttitor. Egestas integer eget aliquet nibh praesent tristique magna. Nisl purus in mollis nunc sed id semper risus. Fames ac turpis egestas maecenas pharetra convallis posuere. Aliquet porttitor lacus luctus accumsan tortor posuere. Odio eu feugiat pretium nibh ipsum consequat. Convallis convallis tellus id interdum velit laoreet id donec ultrices. Nulla facilisi nullam vehicula ipsum. Proin nibh nisl condimentum id venenatis a. Integer quis auctor elit sed vulputate mi.s</div>
+      <div className="uk-flex uk-flex-center uk-grid">
+          <div className="uk-width-expand uk-width-1-2@m uk-flex uk-flex-center uk-flex-middle uk-padding uk-visible@m">
+            <div className="uk-width-1-2@m uk-width-2-3">
+              <h1 className="uk-text-center uk-text-left@s">About Me</h1>
+              <p>My name is Daniel Harrington. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </div>
+          <div className="uk-width-expand uk-flex uk-flex-center uk-background-cover 
+          uk-background-top-left uk-background-fixed uk-background-blend-soft-light uk-hidden@m uk-light" style={ bgPortraitStyleSmall }>
+            <div className="uk-padding">
+              <h1 className="uk-text-center uk-margin-top">About Me</h1>
+              <div className="uk-container">
+                <p>My name is Daniel Harrington. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              </div>
+            </div>
+          </div>
+          <div className="uk-width-1-2@m uk-visible@s uk-background-image@m uk-background-cover uk-background-top-left" style={ bgPortraitStyle }></div>
       </div>
+      <div className="uk-flex uk-flex-center
+        uk-background-cover uk-background-blend-soft-light uk-light" style={ bgMainStyle }>
+        <div className="uk-padding">
+          <h1 className="uk-margin-top uk-text-center">About the Project</h1>
+          <div className="uk-container">
+            <h2>Format</h2>
+            <p>For each topic of physics investigated, there are one or several programs demonstrating the corresponding theory through visualizations or simulations.</p>
+            
+            <p>Programs are written in C++ using the SFML framework. Though Python is often a popular choice for scientific uses, I chose C++ due its comparative speed and popularity in computer graphics. The main advantage of Python is the large amount of abstraction it offers both for mathematical and scientific computations, but since the goal of this project is to develop these tools from scratch, this is not an influential factor.</p>
+            
+            <h2>Topics</h2>
+            <p>Through this project, I aim to cover principles of physics presented in a calculus-based introductory physics course, as well as anything else that happens to interest me. Although the structure is not organized around any particular curriculum, material is loosely borrowed from MIT's 8.01 course and Leonard Susskind's Classical Mechanics Stanford lectures from The Theoretical Minumum courses. Knowledge of basic calculus and programming principles are assumed in communication of concepts.</p>
+            
+            <h2>Download</h2>
+            <p>If you wish to try any of the programs or build upon them, SFML must be installed on your platform.</p>
+          </div>
+        </div>
+      </div>
+
+
 
       {/*//TODO  write about section*/}
 
@@ -45,6 +88,13 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    allFile(filter: {name: {in: ["portrait", "codebg"]}}) {
+      edges {
+        node {
+          publicURL
+        }
       }
     }
   }

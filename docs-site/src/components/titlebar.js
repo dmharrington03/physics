@@ -15,6 +15,11 @@ export default function TitleBar() {
               Computational Physics
             </a>
           </div>
+          <div className="uk-navbar-left">
+            <a href="/about" className="uk-navbar-item">
+              About
+            </a>
+          </div>
         </nav>
       </div>
       <div

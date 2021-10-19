@@ -69,5 +69,5 @@ This is good enough for a simple application like rendering a cube, but for more
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/MxTyektCmtc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-For more information on orthographic projection and computer graphics in general, I highly recommend [Scratchapixel](https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/orthographic-projection-matrix), which explains these concepts in more depth and detail.
+For more information on orthographic projection and computer graphics in general, I highly recommend <a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/orthographic-projection-matrix" target="_blank">Scratchapixel</a>, which explains these concepts in more depth and detail.
 

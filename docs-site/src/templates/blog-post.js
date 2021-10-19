@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 
 import Seo from "../components/seo";
 import TitleBar from "../components/titlebar";
+import PageFooter from "../components/page-footer";
 import ArticleHeader from "../components/article-header";
 import "katex/dist/katex.min.css";
 import UIkit from "uikit";
@@ -73,18 +74,8 @@ const BlogPostTemplate = ({ data }) => {
         </nav>
       </div>
 
-
-      <footer className="uk-height-small uk-flex uk-flex-center 
-              uk-background-secondary uk-flex-column
-              uk-flex-middle uk-light">
-          <p>Daniel Harrington</p>
-          <ul className="uk-iconnav">
-            <li><a href="https://github.com/dmharrington03" 
-              data-uk-icon="icon: github-alt; ratio: 1.2"
-              target="_blank" rel="noreferrer"></a>
-            </li>
-          </ul>
-      </footer>
+      <PageFooter />
+      
     </div>
   );
 };

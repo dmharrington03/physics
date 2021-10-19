@@ -20,13 +20,15 @@
   color: #2483d7;
 }
 
-.uk-logo:hover {
-  filter: brightness(95%);
+a.uk-navbar-item:hover {
+  filter: brightness(90%);
   transition: filter .2s ease-in-out;
+  text-decoration: none;
 }
 
-.uk-logo {
+a.uk-navbar-item {
   transition: filter .2s ease-in-out;
+  text-decoration: none;
 }
 
 .card-link:hover {

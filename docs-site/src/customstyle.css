@@ -21,7 +21,7 @@
 }
 
 a.uk-navbar-item:hover {
-  filter: brightness(95%);
+  filter: brightness(90%);
   transition: filter .2s ease-in-out;
   text-decoration: none;
 }

@@ -10,8 +10,21 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 const About = ({ data }) => {
 
-  const portraitURL = data.allFile.edges[0].node.publicURL;
-  const codebgURL = data.allFile.edges[1].node.publicURL;
+  let portraitURL;
+  let codebgURL;
+
+  // Get URLs for pictures, order not retained in server response
+  if (data.allFile.edges[0].node.name === "portrait") {
+    portraitURL = data.allFile.edges[0].node.publicURL;
+    codebgURL = data.allFile.edges[1].node.publicURL;
+  } else {
+    portraitURL = data.allFile.edges[1].node.publicURL;
+    codebgURL = data.allFile.edges[0].node.publicURL;
+  }
+
+
+
+
 
   UIkit.use(Icons);
 
@@ -93,6 +106,7 @@ export const pageQuery = graphql`
     allFile(filter: {name: {in: ["portrait", "codebg"]}}) {
       edges {
         node {
+          name
           publicURL
         }
       }

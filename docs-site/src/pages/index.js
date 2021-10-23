@@ -4,11 +4,17 @@ import { graphql } from "gatsby";
 import Seo from "../components/seo";
 import TitleBar from "../components/titlebar";
 import ArticleCard from "../components/article-card";
+import PageFooter from "../components/page-footer";
+
+import UIkit from "uikit";
+import Icons from 'uikit/dist/js/uikit-icons';
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;
   const images = data.allFile.nodes;
+  UIkit.use(Icons);
+
 
   if (posts.length === 0) {
     return (
@@ -25,7 +31,7 @@ const BlogIndex = ({ data, location }) => {
     <div>
       <Seo title="Computational Physics" />
       <TitleBar />
-      <div className="uk-container uk-margin-top">
+      <div className="uk-container uk-margin" data-uk-height-viewport="expand: true">
         <div className="uk-grid uk-grid-match" data-uk-grid 
           data-uk-height-match="target: > div > div > a > div.uk-card-body">
           {posts.map((post) => {
@@ -44,9 +50,7 @@ const BlogIndex = ({ data, location }) => {
           })}
         </div>
       </div>
-      <footer className="uk-height-small">
-    
-      </footer>
+      <PageFooter />
     </div>
   );
 };

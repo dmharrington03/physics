@@ -24,6 +24,15 @@ class PointCharge {
         this.createStartPoints();
     }
 
+    update() {
+        // Run every frame
+        this.pos = PointCharge.toCenterOrigin(createVector(mouseX, mouseY));;
+        this.startPoints = [];
+        this.createStartPoints();
+        this.drawLines();
+        this.dispay();
+    }
+
     createStartPoints() {
         // Create start points for the field lines, in polar coordinates
         let n_lines = this.charge * this.linesPerCharge;
@@ -32,9 +41,13 @@ class PointCharge {
         for (let i = 0; i < n_lines; i++) {
             // Push cartesian coordinates to startPoints array
             let theta = angle * i;
-            this.startPoints.push(p5.Vector.mult(createVector(cos(theta), sin(theta)), this.radius));
+            this.startPoints.push(
+                p5.Vector.add(
+                    p5.Vector.mult(createVector(cos(theta), sin(theta)), this.radius),
+                    this.pos
+                )
+            );
         }
-        console.log(this.startPoints);
     }
 
     getEField(displacement) {
@@ -93,15 +106,22 @@ class PointCharge {
         // param a: p5.Vector
         return createVector(a.x + width / 2, height / 2 - a.y);
     }
+
+    static toCenterOrigin(a) {
+        // Given a point in corner-origin coordinates, convert to center origin
+        // param a: p5.Vector
+        return createVector(a.x - width / 2, height / 2 - a.y);
+    }
 }
 
 
 let source;
+let mousePos;
 
 function setup() {
     createCanvas(width, height);
     source = new PointCharge(0, 0, 2, createVector(500, 500));
-    noLoop();
+    // noLoop();
 }
 
 function draw() {
@@ -114,9 +134,7 @@ function draw() {
     // noStroke();
     strokeWeight(2);
     fill(250, 50, 50);
-    // ellipse(width / 2, height / 2, 30, 30);
-    source.drawLines();
-    source.dispay();
+    source.update();
     
 }
 

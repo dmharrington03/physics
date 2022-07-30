@@ -2,7 +2,8 @@ const width = 600;
 const height = 600;
 
 // E Field Proportionality constant, equal to 1 / (4 * pi * epsilon_0)
-const K = 1;
+const K = 20000;
+
 
 // Define point charge class
 class PointCharge {
@@ -10,9 +11,10 @@ class PointCharge {
     pos = createVector(0, 0);
     charge = 0;
     radius = 10;
-    linesPerCharge = 3;
+    linesPerCharge = 4;
     startPoints = [];
-    target;
+    target = null;
+    doDraw;
     dR = 5;
 
     constructor(x, y, charge, target) {
@@ -20,16 +22,30 @@ class PointCharge {
         this.pos.x = x
         this.pos.y = y
         this.charge = charge;
-        this.target = target; // p5 Vector
+        // if (target instanceof PointCharge)
+        this.target = target;
+        // throw "target not a PointCharge";
         this.createStartPoints();
     }
 
-    update() {
+    update(movement=true) {
         // Run every frame
-        this.pos = PointCharge.toCenterOrigin(createVector(mouseX, mouseY));;
+        if (movement)
+            this.pos = PointCharge.toCenterOrigin(createVector(mouseX, mouseY));;
         this.startPoints = [];
         this.createStartPoints();
-        this.drawLines();
+        /* If + always draw
+        If 0 never draw
+        If - only draw if other is - */
+        if (this.charge > 0)
+            this.doDraw = true;
+        else if (this.charge === 0)
+            this.doDraw = false;
+        else if (this.target.charge < 0) // Both are -1
+            this.doDraw = true;
+
+        if (this.doDraw)
+            this.drawLines();
         this.dispay();
     }
 
@@ -50,12 +66,23 @@ class PointCharge {
         }
     }
 
-    getEField(displacement) {
-        // param displacement: p5.Vector
+    getEField(pt, otherCharge=null) {
+        // param pt: p5.Vector
+        // param otherCharge: PointCharge
         // returns p5.Vector
+        let displacementSelf = p5.Vector.sub(pt, this.pos);
 
-        let EFieldMag = 10000 * this.charge / pow(displacement.mag(), 2);
-        return p5.Vector.mult(displacement.normalize(), EFieldMag);
+        let EFieldMagSelf = K * this.charge / pow(displacementSelf.mag(), 2);
+        if (!otherCharge) {
+            return p5.Vector.mult(displacementSelf.normalize(), EFieldMagSelf);
+        } else {
+            let displacementOther = p5.Vector.sub(pt, otherCharge.pos);
+            let EFieldSelf = p5.Vector.mult(displacementSelf.normalize(), EFieldMagSelf);
+            let EFieldMagOther = K * otherCharge.charge / pow(displacementOther.mag(), 2);
+            let EFieldOther = p5.Vector.mult(displacementOther.normalize(), EFieldMagOther);
+            return p5.Vector.add(EFieldOther, EFieldSelf);
+
+        }
     }
 
     drawLines() {
@@ -63,41 +90,49 @@ class PointCharge {
         /*  Loop until off-screen or at end region
             Calculate E field normal vector 
             Move dR * Ehat and make new vertex */
-        //TODO fix
+        stroke(4);
         for (let i = 0; i < this.startPoints.length; i++) {
             
-            let pt = createVector(this.startPoints[i].x, this.startPoints[i].y);
-            console.log("pt" + i + " " + pt);
-            for (let i = 0; i < 10; i++) {
-                let EFieldUnit = this.getEField(p5.Vector.sub(pt, this.pos));
-                let newPt = p5.Vector.add(pt, p5.Vector.mult(EFieldUnit, this.dR));
+            var pt = createVector(this.startPoints[i].x, this.startPoints[i].y);
+            while (!this.outOfBounds(pt)) {
+                
+                let EFieldUnit = this.getEField(pt, this.target).normalize();
+                let newPt;
+                // Edge case EFieldUnit == 0, no movement will happen:
+                if (EFieldUnit.mag() <= 0.0001)
+                    newPt = p5.Vector.add(pt, p5.Vector.mult(createVector(2, 2), this.dR));
+                else
+                    newPt = p5.Vector.add(pt, p5.Vector.mult(EFieldUnit, this.dR));
 
                 let cPt = PointCharge.toCornerOrigin(pt);
                 let cNewPt = PointCharge.toCornerOrigin(newPt);
                 line(cPt.x, cPt.y, cNewPt.x, cNewPt.y);
-                // ellipse(cPt.x, cPt.y, 5, 5);
+                // ellipse(cPt.x, cPt.y, 3);
                 pt = newPt;
             }
-            console.log("done")
+            // console.log(this.isAtTarget(pt));
         }
     }
 
-    isInBounds(positionVector) {
+    outOfBounds(positionVector) {
         // param positionVector: p5 Vector
         
-        // Check on-screen
-        let onScreen = (abs(positionVector.x) <= width / 2) || (abs(positionVector.y) <= height / 2);
-
-        // Check if not in range of target
-        // let displacement = p5.Vector.sub(this.target, positionVector);
-        // let notInRange = displacement.mag() > this.radius + 1;
-        return onScreen;
+        let inBounds = (abs(positionVector.x) <= width / 2 + 300) && (abs(positionVector.y) <= height / 2 + 300);
+        let displacement = p5.Vector.sub(positionVector, this.target.pos);
+        let isAtTarget = displacement.mag() < this.target.radius;
+        return (!inBounds || isAtTarget);
     }
 
     dispay() {
         // Draw to the canvas
-        fill(250, 50, 50);
+        if (this.charge > 0)
+            fill(250, 50, 50);
+        else if (this.charge < 0)
+            fill(50, 50, 250);
+        else
+            fill(50);
         let cPos = PointCharge.toCornerOrigin(this.pos);
+        noStroke();
         ellipse(cPos.x, cPos.y, this.radius * 2);
     }
 
@@ -115,13 +150,17 @@ class PointCharge {
 }
 
 
-let source;
+let source1; // Will draw
+let source2;
 let mousePos;
 
 function setup() {
     createCanvas(width, height);
-    source = new PointCharge(0, 0, 2, createVector(500, 500));
-    // noLoop();
+    source2 = new PointCharge(-100, 0, 4);
+    source1 = new PointCharge(0, 20, -2, source2);
+    source2.target = source1;
+    stroke(100);
+    // noLoop();   
 }
 
 function draw() {
@@ -130,11 +169,11 @@ function draw() {
     // translate(width/2, height/2); 
     // scale(1, -1);
 
-    background(220);
+    background(240);
     // noStroke();
     strokeWeight(2);
     fill(250, 50, 50);
-    source.update();
-    
+    source2.update(movement=false);
+    source1.update();
 }
 

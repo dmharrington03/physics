@@ -30,7 +30,7 @@ class PointCharge {
 
     update(movement=true) {
         // Run every frame
-        if (movement && mouseIsPressed)
+        if (movement && mousePressedInWindow())
             this.pos = PointCharge.toCenterOrigin(createVector(mouseX, mouseY));;
         this.startPoints = [];
         this.createStartPoints();
@@ -90,7 +90,6 @@ class PointCharge {
         /*  Loop until off-screen or at end region
             Calculate E field normal vector 
             Move dR * Ehat and make new vertex */
-        stroke(4);
         
         for (let i = 0; i < this.startPoints.length; i++) {
             
@@ -103,7 +102,8 @@ class PointCharge {
                 let newPt;
 
                 /* Reverse if both are negative or one is negative and the other is zero */
-                if (this.target.charge <= 0 && this.charge < 0)
+                let reverseDir = this.target.charge <= 0 && this.charge < 0;
+                if (reverseDir)
                     EFieldUnit.mult(-1);
 
                 // Edge case EFieldUnit == 0, no movement will happen:
@@ -114,7 +114,38 @@ class PointCharge {
 
                 let cPt = PointCharge.toCornerOrigin(pt);
                 let cNewPt = PointCharge.toCornerOrigin(newPt);
+                stroke(4)
                 line(cPt.x, cPt.y, cNewPt.x, cNewPt.y);
+                
+                // Calculate points to construct triangle arrow
+                let cPtNormal1 = PointCharge.toCornerOrigin(
+                    p5.Vector.add(p5.Vector.rotate(p5.Vector.sub(newPt, pt), - PI/2), pt)
+                );
+                let cPtNormal2 = PointCharge.toCornerOrigin(
+                    p5.Vector.add(p5.Vector.rotate(p5.Vector.sub(newPt, pt), PI/2), pt)
+                );
+                let cLagPt =  PointCharge.toCornerOrigin(
+                    p5.Vector.add(p5.Vector.rotate(p5.Vector.sub(newPt, pt), PI), pt)
+                );
+                
+                // Draw every 20 dR, offset so it doesn't draw on top of charge circle body
+                noStroke();
+                fill(0);
+                if (j % 20 === 15) {
+                    if (reverseDir) {
+                        triangle(
+                            cPtNormal1.x, cPtNormal1.y,
+                            cLagPt.x, cLagPt.y,
+                            cPtNormal2.x, cPtNormal2.y
+                        );
+                    } else {
+                        triangle(
+                            cPtNormal1.x, cPtNormal1.y,
+                            cNewPt.x, cNewPt.y,
+                            cPtNormal2.x, cPtNormal2.y
+                        );
+                    }
+                }
 
                 // Check for cycles, occurs if same charge field lines meet colinearly
                 if (j++ > 10 * width / this.dR)
@@ -159,6 +190,12 @@ class PointCharge {
     }
 }
 
+function mousePressedInWindow() {
+    return (
+        mouseIsPressed && (mouseX <= width && mouseY <= height)
+    );
+}
+
 
 let source1;
 let source2;
@@ -166,14 +203,14 @@ let mousePos;
 
 function setup() {
     createCanvas(width, height);
-    source2 = new PointCharge(-100, 0, 4);
+    source2 = new PointCharge(-150, 0, 4);
     source1 = new PointCharge(0, 20, -2, source2);
     source2.target = source1;
     stroke(100);
-    slider1 = createSlider(-5, 5, -2, 1);
+    slider1 = createSlider(-5, 5, 3, 1);
     slider2 = createSlider(-5, 5, -2, 1);
-    slider1.position(20, height - 20);
-    slider2.position(160, height - 20);
+    // slider1.position(20, height - 20);
+    // slider2.position(160, height - 20);
     textSize(16);
 }
 
@@ -185,9 +222,9 @@ function draw() {
     source1.charge = slider1.value();
     source2.charge = slider2.value();
     fill(0);
-    text(`Charge 1: ${source1.charge}`, 20, height - 40);
-    text(`Charge 2: ${source2.charge}`, 160, height - 40);
-    source2.update(movement=false);
+    text(`Charge 1: ${source1.charge}`, 20, height - 10);
+    text(`Charge 2: ${source2.charge}`, 140, height - 10);
     source1.update();
+    source2.update(movement=false);
 }
 

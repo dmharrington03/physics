@@ -36,12 +36,13 @@ class PointCharge {
         this.createStartPoints();
         /* If + always draw
         If 0 never draw
-        If - only draw if other is - */
+        If - only draw if other is - or 0 */
+        this.doDraw = false;
         if (this.charge > 0)
             this.doDraw = true;
         else if (this.charge === 0)
             this.doDraw = false;
-        else if (this.target.charge < 0) // Both are -1
+        else if (this.target.charge <= 0) // else this.charge < 0
             this.doDraw = true;
 
         if (this.doDraw)
@@ -51,7 +52,7 @@ class PointCharge {
 
     createStartPoints() {
         // Create start points for the field lines, in polar coordinates
-        let n_lines = this.charge * this.linesPerCharge;
+        let n_lines = abs(this.charge) * this.linesPerCharge;
         let angle = TWO_PI / n_lines;
 
         for (let i = 0; i < n_lines; i++) {
@@ -90,17 +91,21 @@ class PointCharge {
         /*  Loop until off-screen or at end region
             Calculate E field normal vector 
             Move dR * Ehat and make new vertex */
-        //TODO handle two negative values
         stroke(4);
+        
         for (let i = 0; i < this.startPoints.length; i++) {
             
             let pt = createVector(this.startPoints[i].x, this.startPoints[i].y);
-            let dist = createVector(0, 0);
             let j = 0;
+
             while (!this.outOfBounds(pt)) {
                 
                 let EFieldUnit = this.getEField(pt, this.target).normalize();
                 let newPt;
+                /* Reverse if both are negative or one is negative and the other is zero */
+                if (this.target.charge <= 0 && this.charge < 0)
+                    EFieldUnit.mult(-1);
+
                 // Edge case EFieldUnit == 0, no movement will happen:
                 if (EFieldUnit.mag() <= 0.01)
                     newPt = p5.Vector.add(pt, p5.Vector.mult(createVector(2, 1), this.dR));
@@ -123,6 +128,7 @@ class PointCharge {
 
     outOfBounds(positionVector) {
         // param positionVector: p5 Vector
+        //TODO refactor using p5.Vector.dist()
         
         let inBounds = (abs(positionVector.x) <= width / 2 + 300) && (abs(positionVector.y) <= height / 2 + 300);
         let displacement = p5.Vector.sub(positionVector, this.target.pos);
@@ -167,8 +173,8 @@ function setup() {
     source1 = new PointCharge(0, 20, -2, source2);
     source2.target = source1;
     stroke(100);
-    slider1 = createSlider(-5, 5, 2, 1);
-    slider2 = createSlider(-5, 5, 2, 1);
+    slider1 = createSlider(-5, 5, -2, 1);
+    slider2 = createSlider(-5, 5, -2, 1);
     // noLoop();   
 }
 

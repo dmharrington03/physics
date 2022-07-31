@@ -90,24 +90,31 @@ class PointCharge {
         /*  Loop until off-screen or at end region
             Calculate E field normal vector 
             Move dR * Ehat and make new vertex */
+        //TODO handle two negative values
         stroke(4);
         for (let i = 0; i < this.startPoints.length; i++) {
             
-            var pt = createVector(this.startPoints[i].x, this.startPoints[i].y);
+            let pt = createVector(this.startPoints[i].x, this.startPoints[i].y);
+            let dist = createVector(0, 0);
+            let j = 0;
             while (!this.outOfBounds(pt)) {
                 
                 let EFieldUnit = this.getEField(pt, this.target).normalize();
                 let newPt;
                 // Edge case EFieldUnit == 0, no movement will happen:
-                if (EFieldUnit.mag() <= 0.0001)
-                    newPt = p5.Vector.add(pt, p5.Vector.mult(createVector(2, 2), this.dR));
+                if (EFieldUnit.mag() <= 0.01)
+                    newPt = p5.Vector.add(pt, p5.Vector.mult(createVector(2, 1), this.dR));
                 else
                     newPt = p5.Vector.add(pt, p5.Vector.mult(EFieldUnit, this.dR));
 
                 let cPt = PointCharge.toCornerOrigin(pt);
                 let cNewPt = PointCharge.toCornerOrigin(newPt);
                 line(cPt.x, cPt.y, cNewPt.x, cNewPt.y);
-                // ellipse(cPt.x, cPt.y, 3);
+
+                // Check for cycles, occurs if same charge field lines meet colinearly
+                if (j++ > 10 * width / this.dR)
+                    break
+
                 pt = newPt;
             }
             // console.log(this.isAtTarget(pt));
@@ -160,6 +167,8 @@ function setup() {
     source1 = new PointCharge(0, 20, -2, source2);
     source2.target = source1;
     stroke(100);
+    slider1 = createSlider(-5, 5, 2, 1);
+    slider2 = createSlider(-5, 5, 2, 1);
     // noLoop();   
 }
 
@@ -173,6 +182,8 @@ function draw() {
     // noStroke();
     strokeWeight(2);
     fill(250, 50, 50);
+    source1.charge = slider1.value();
+    source2.charge = slider2.value();
     source2.update(movement=false);
     source1.update();
 }

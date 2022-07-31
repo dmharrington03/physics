@@ -30,7 +30,7 @@ class PointCharge {
 
     update(movement=true) {
         // Run every frame
-        if (movement)
+        if (movement && mouseIsPressed)
             this.pos = PointCharge.toCenterOrigin(createVector(mouseX, mouseY));;
         this.startPoints = [];
         this.createStartPoints();
@@ -82,7 +82,6 @@ class PointCharge {
             let EFieldMagOther = K * otherCharge.charge / pow(displacementOther.mag(), 2);
             let EFieldOther = p5.Vector.mult(displacementOther.normalize(), EFieldMagOther);
             return p5.Vector.add(EFieldOther, EFieldSelf);
-
         }
     }
 
@@ -102,6 +101,7 @@ class PointCharge {
                 
                 let EFieldUnit = this.getEField(pt, this.target).normalize();
                 let newPt;
+
                 /* Reverse if both are negative or one is negative and the other is zero */
                 if (this.target.charge <= 0 && this.charge < 0)
                     EFieldUnit.mult(-1);
@@ -122,17 +122,14 @@ class PointCharge {
 
                 pt = newPt;
             }
-            // console.log(this.isAtTarget(pt));
         }
     }
 
     outOfBounds(positionVector) {
         // param positionVector: p5 Vector
-        //TODO refactor using p5.Vector.dist()
         
         let inBounds = (abs(positionVector.x) <= width / 2 + 300) && (abs(positionVector.y) <= height / 2 + 300);
-        let displacement = p5.Vector.sub(positionVector, this.target.pos);
-        let isAtTarget = displacement.mag() < this.target.radius;
+        let isAtTarget = p5.Vector.dist(positionVector, this.target.pos) < this.target.radius;
         return (!inBounds || isAtTarget);
     }
 
@@ -163,7 +160,7 @@ class PointCharge {
 }
 
 
-let source1; // Will draw
+let source1;
 let source2;
 let mousePos;
 
@@ -175,21 +172,21 @@ function setup() {
     stroke(100);
     slider1 = createSlider(-5, 5, -2, 1);
     slider2 = createSlider(-5, 5, -2, 1);
-    // noLoop();   
+    slider1.position(20, height - 20);
+    slider2.position(160, height - 20);
+    textSize(16);
 }
 
 function draw() {
 
-    // Set origin to center of screen
-    // translate(width/2, height/2); 
-    // scale(1, -1);
-
     background(240);
-    // noStroke();
     strokeWeight(2);
     fill(250, 50, 50);
     source1.charge = slider1.value();
     source2.charge = slider2.value();
+    fill(0);
+    text(`Charge 1: ${source1.charge}`, 20, height - 40);
+    text(`Charge 2: ${source2.charge}`, 160, height - 40);
     source2.update(movement=false);
     source1.update();
 }

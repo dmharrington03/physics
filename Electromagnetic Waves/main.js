@@ -121,6 +121,7 @@ function keyPressed() {
 
 function writeCaptions() {
     fill(255);
+    text("Click anywhere to set focus", width - 200, height - 10);
     text("A and D move left source", 10, height - 30);
     text("← and → move right source", 10, height - 10);
     text("Blue graph shows amplitude at y=30", 10, 150);

@@ -1,0 +1,43 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "build1",
+			"command": "/usr/bin/clang++",
+			"args": [
+				"${file}",
+				"-I/opt/homebrew/Cellar/sfml/2.5.1_2/include",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}",
+				"-L/opt/homebrew/Cellar/sfml/2.5.1_2/lib",
+				"-lsfml-graphics",
+				"-lsfml-window",
+				"-lsfml-system"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "none"
+			},
+			"detail": "compiler: /usr/bin/clang++"
+		},
+		{
+			"type": "process",
+			"label": "run",
+			"command": "${fileDirname}/${fileBasenameNoExtension}",
+			"args": [],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"group": {
+				"kind": "none"
+			},
+			"problemMatcher": []
+		}
+	]
+}

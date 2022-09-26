@@ -1,74 +1,26 @@
-#include "Platform/Platform.hpp"
+#include <SFML/Graphics.hpp>
+#include "headers.hpp"
+#include "funcs.cpp"
 
 int main()
 {
-	const int width = 1600;
-	sf::RenderWindow window(sf::VideoMode(width, width), "Kinematics", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    sf::CircleShape shape(addWidth(80));
+    shape.setFillColor(sf::Color::Green);
 
-	sf::Font font;
-	if (!font.loadFromFile("Roboto Mono Medium for Powerline.ttf"))
-		std::cout << "Error loading font" << std::endl;
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
 
-	sf::Text text;
-	text.setFont(font);
-	text.setCharacterSize(50);
-	text.setFillColor(sf::Color::White);
-	text.setPosition(20, 20);
-	text.setString("Hello World");
+        window.clear();
+        window.draw(shape);
+        window.display();
+    }
 
-	const float radius = 80.0;
-	sf::CircleShape ball(radius);
-	ball.setFillColor(sf::Color::White);
-	ball.setOrigin(sf::Vector2f(radius, radius));
-	ball.setPosition(sf::Vector2f(100, width / 2));
-
-	sf::RectangleShape axis(sf::Vector2f(width, 6));
-	axis.setFillColor(sf::Color(150, 150, 150));
-	axis.setOrigin(width / 2, 2);
-	axis.setPosition(width / 2, width / 2);
-
-	const int lines = 16;
-	sf::RectangleShape gridline(sf::Vector2f(width, 2));
-	gridline.setFillColor(sf::Color(120, 120, 120));
-	gridline.setOrigin(width / 2, 1);
-	gridline.setPosition(0, width / 2);
-
-	sf::Event event;
-	while (window.isOpen())
-	{
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-				case sf::Event::Closed:
-					window.close();
-
-				default:
-					continue;
-			}
-		}
-
-		window.clear(sf::Color(50, 50, 70));
-
-		window.draw(axis);
-		axis.setRotation(90);
-		window.draw(axis);
-		axis.setRotation(0);
-
-		for (int i = 0; i < lines; i++)
-		{
-			gridline.setRotation(0);
-			gridline.setPosition(width / 2, i * (width / lines));
-			window.draw(gridline);
-			gridline.setRotation(90);
-			gridline.setPosition(i * (width / lines), width / 2);
-			window.draw(gridline);
-		}
-
-		window.draw(text);
-		window.draw(ball);
-		window.display();
-	}
-
-	return 0;
+    return 0;
 }

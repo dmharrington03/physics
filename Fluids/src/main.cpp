@@ -6,10 +6,9 @@
 #include "headers.hpp"
 #include "funcs.cpp"
 
-const int dim = 20;
 const int width = 1200;
 
-#define N 100
+#define N 150
 const int boxWidth = width / N;
 #define IX(i, j) ((i) + (N + 2) * (j))
 const int size = (N + 2) * (N + 2);
@@ -24,10 +23,15 @@ const float visc = .001;
 const float dt = 0.01;
 float diff = .001;
 
+sf::Vector2i pMousePos(0, 0);
+sf::Vector2i mousePos(0, 0);
+sf::Vector2i change(0, 0);
+sf::Vector2i box(0, 0);
+
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(width, width), "Fluid Sim");
-    // TODO create array of sf::RectangleShape, loop over and set color to density b/w
     sf::RectangleShape rectGrid[N][N];
 
     // Populate Rectangle Array
@@ -49,47 +53,49 @@ int main()
     init_zero(size, dens);
     init_zero(size, dens_prev);
 
-    // u_prev[IX(50, 50)] += 1.0f;
-    // dens_prev[IX(50, 50)] += 10.0f;
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
-            {
+            if (event.type == sf::Event::Closed) {
                 window.close();
             }
+
+            // Clear screen on space
             if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::Up)
-                    diff += 0.005;
-                else if (event.key.code == sf::Keyboard::Down)
-                    diff -= 0.005;
+                if (event.key.code == sf::Keyboard::Space)
+                    init_zero(size, u);
+                    init_zero(size, v);
+                    init_zero(size, u_prev);
+                    init_zero(size, v_prev);
+                    init_zero(size, dens);
+                    init_zero(size, dens_prev);
             }
         }
 
         window.clear();
-
-        // get_from_UI(dens_prev, u_prev, v_prev);
-        // sf::Vector2i box(0, 0);
-        // if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        //     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-        //     box = sf::Vector2i(floor(mousePos.x / boxWidth), floor(mousePos.y / boxWidth));
-        //     dens_prev[IX(box.x, box.y)] += 10.0f;
-        //     // u[IX(box.x, box.y)] += 1.0f;
-        //     u_prev[IX(box.x, box.y)] = 10.0f;
-        //     // v_prev[IX(box.x, box.y)] += 100.0f;
-        // }
-        dens_prev[IX(50, 50)] = 20.0f;
-        u[IX(50, 50)] = 10.0f;
+        
+        // Get user mouse input
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            mousePos = sf::Mouse::getPosition(window);
+            change = mousePos - pMousePos;
+            box = sf::Vector2i(floor(mousePos.x / boxWidth), floor(mousePos.y / boxWidth));
+            box.x = constrain(box.x, 0, N);
+            box.y = constrain(box.y, 0, N);
+            dens[IX(box.x, box.y)] = 0.5f;
+            u[IX(box.x, box.y)] = -change.x * 5;
+            v[IX(box.x, box.y)] = -change.y * 5;
+        }
+        pMousePos = mousePos;
 
         vel_step(N, u, v, u_prev, v_prev, visc, dt);
         dens_step(N, dens, dens_prev, u, v, diff, dt);
-        fade_dens(N, dens, 0.99f);
-        // draw_dens(N, dens);j
 
-        // // Loop through x positions
+        fade_dens(N, dens, 0.99f);
+
+        // Loop through x positions
         for (int i = 0; i < N; i++) {
             // Loop through y positions
             for (int j = 0; j < N; j++) {

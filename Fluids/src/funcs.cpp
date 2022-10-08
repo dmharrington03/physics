@@ -19,7 +19,7 @@ void add_source(int N, float *x, float *s, float dt)
 float constrain(float n, float min, float max)
 {
     float out = n <= min ? min : n;
-    return n >= max ? max : n;
+    return out >= max ? max : out;
 }
 
 void fade_dens(int N, float *dens, float amt)
